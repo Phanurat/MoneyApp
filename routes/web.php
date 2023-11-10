@@ -1,8 +1,8 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-
-
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +25,13 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $user = auth()->user(); // ดึงข้อมูลผู้ใช้ที่ล็อกอินอยู่
+        $wallet_bank = DB::table('bank')->select('wallet_bank')->where('id', $user->id)->get();
+        return view('dashboard', compact('wallet_bank'));
+
+        //return view('dashboard');
     })->name('dashboard');
 });
+
+
+?>
