@@ -33,9 +33,16 @@
         <div class="input-group">
             <input id="input4" class="form-control" type="text" placeholder="เงินสด" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
-                <span class="input-group-text">
-                    {{ $name[0]->fiat_wallet }} บาท
-                </span>
+                @if (isset($name[0]) && isset($name[0]->fiat_wallet))
+                    <span class="input-group-text">
+                        {{ $name[0]->fiat_wallet }} บาท
+                    </span>
+                @else
+                    <span class="input-group-text">
+                        0 บาท
+                    </span>
+                @endif
+
             </div>
             <a class="btn btn-secondary" href="{{ route('edit_fiat') }}">...</a>
 
@@ -88,5 +95,7 @@
 
     <div style="margin-top: 10px;"></div>
     <a href="{{ route('add_transcation') }}" class="add-report-button">เพิ่มรายการ</a>
+
+    
 
 </x-app-layout>

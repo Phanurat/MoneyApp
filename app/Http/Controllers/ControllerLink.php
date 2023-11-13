@@ -13,7 +13,6 @@ use Carbon\Carbon;
 
 class ControllerLink extends Controller
 
-
 {
     //
     public function addTranscation()
@@ -55,48 +54,6 @@ class ControllerLink extends Controller
 
         return redirect()->route('edit_fiat');
     }
-    //Update Fiat From
-    public function updateFiat(Request $request)
-    {
-        $user = auth()->user();
-        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
-        //fiat update input from form edit_fiat
-        $fiat_input = $request->input('fiat_update');
-
-        $update_fiat = DB::table('transcations')
-            ->where('user_name', $userdata[0]->name)
-            ->latest('id_transaction')
-            ->limit(1)
-            ->update(['fiat_wallet' => $fiat_input]);
-    }
-    //Update Fiat From
-    public function updateFiat(Request $request)
-    {
-        $user = auth()->user();
-        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
-        //fiat update input from form edit_fiat
-        $fiat_input = $request->input('fiat_update');
-
-        $update_fiat = DB::table('transcations')
-            ->where('user_name', $userdata[0]->name)
-            ->latest('id_transaction')
-            ->limit(1)
-            ->update(['fiat_wallet' => $fiat_input]);
-    }
-    //Update Fiat From
-    public function updateFiat(Request $request)
-    {
-        $user = auth()->user();
-        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
-        //fiat update input from form edit_fiat
-        $fiat_input = $request->input('fiat_update');
-
-        $update_fiat = DB::table('transcations')
-            ->where('user_name', $userdata[0]->name)
-            ->latest('id_transaction')
-            ->limit(1)
-            ->update(['fiat_wallet' => $fiat_input]);
-    }
 
     //insert into Transaction
     public function saveTransaction(Request $request)
@@ -114,7 +71,6 @@ class ControllerLink extends Controller
         date_default_timezone_set('Asia/Bangkok');
         $time_at = Carbon::now('Asia/Bangkok');
 
-        //select 
         $name = DB::table('transcations')->select('id_transaction', 'fiat_wallet')
         ->where('user_name', $userdata[0]->name)
         ->whereNotNull('fiat_wallet')

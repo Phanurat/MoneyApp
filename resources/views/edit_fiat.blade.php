@@ -11,8 +11,14 @@
             @csrf
             <div class="mb-3">
                 <label for="valueinput" class="form-label">เงินสด</label> <br>
-                <label for="valueinput" class="form-label">จำนวนเงิน : {{ $name[0]->fiat_wallet }} บาท</label>
-                <input type="number" class="form-control" name="fiat_update" placeholder="{{ $name[0]->fiat_wallet }} บาท">
+                <label for="valueinput" class="form-label">จำนวนเงิน : 
+                    @if (isset($name[0]) && isset($name[0]->fiat_wallet)) 
+                        {{ $name[0]->fiat_wallet }}
+                    @else
+                        0
+                        บาท</label>
+                    @endif
+                <input type="number" class="form-control" name="fiat_update" placeholder="@if(isset($name[0])&&isset($name[0]->fiat_wallet)){{$name[0]->fiat_wallet}}@else 0 บาท@endif">
                 <div style="margin-top: 10px;"></div>
             </div>
             <div class="mb-3">
