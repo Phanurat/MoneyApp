@@ -34,7 +34,10 @@ Route::middleware([
     })->name('dashboard');
 });
 
+//Link path files
 Route::get('/add-transcation', [ControllerLink::class, 'addTranscation'])->name('add_transcation');
 
+//save Form
+Route::post('/save-transcation', [ControllerLink::class, 'saveTranscation'])->name('save_transcation');
 
 ?>
