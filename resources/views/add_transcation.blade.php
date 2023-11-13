@@ -7,7 +7,7 @@
     
     <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
         <form method="post" action="{{ route('save_transcation') }}">
-
+            @csrf
             {{ $name[0]->name }}
             {{ $name[0]->id }}
 
@@ -21,8 +21,8 @@
             </div>
             <div class="mb-3">
                 <label for="valueinput" class="form-label">ประเภท</label>
-                <select name="select-type" id="select-type">
-                    <option value="type">---</option>
+                <select name="select_type" id="select-type">
+
                     <option value="income">รายได้</option>
                     <option value="expense">รายจ่าย</option>
                 </select>

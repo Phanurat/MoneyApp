@@ -38,6 +38,6 @@ Route::middleware([
 Route::get('/add-transcation', [ControllerLink::class, 'addTranscation'])->name('add_transcation');
 
 //save Form
-Route::post('/save-transcation', [ControllerLink::class, 'saveTranscation'])->name('save_transcation');
+Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
 
 ?>
