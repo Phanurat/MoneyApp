@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Transaction;
+
 //install composer require nesbot/carbon
 //import
 use Carbon\Carbon;
 
-
-
 class ControllerLink extends Controller
+
+
 {
     //
     public function addTranscation()
@@ -21,7 +23,25 @@ class ControllerLink extends Controller
         $name = DB::table('users')->select('name', 'id')->where('id', $user->id)->get(); // ใช้ first() เพื่อให้ได้ผลลัพธ์เป็น object แทน array
         return view('add_transcation', compact('name'));
     }
+    
+    //edit_fiat
+    public function editFiat()
+    {
+        $user = auth()->user();
+        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
 
+        $name = DB::table('transcations')->select('id_transaction', 'fiat_wallet')
+        ->where('user_name', $userdata[0]->name)
+        ->whereNotNull('fiat_wallet')
+        ->orderBy('id_transaction', 'desc')
+        ->limit(1)
+        ->get();
+
+        return view('edit_fiat', compact('name'));
+
+    }
+
+    //insert into Transaction
     public function saveTransaction(Request $request)
     {
         $user = auth()->user();
@@ -48,7 +68,5 @@ class ControllerLink extends Controller
 
         return redirect()->back();
     }
-
-
 
 }

@@ -37,7 +37,9 @@
                     {{ isset($wallet_bank[0]->wallet_bank) ? $wallet_bank[0]->wallet_bank : 0 }} บาท
                 </span>
             </div>
-            <a class="btn btn-secondary" href="edit_page.html">...</a>
+            <a class="btn btn-secondary" href="{{ route('edit_fiat') }}">...</a>
+
+
         </div>
     </div>
 
@@ -48,7 +50,7 @@
             <div class="input-group-append">
                 <span class="input-group-text">1,000 บาท</span>
             </div>
-            <a class="btn btn-secondary" href="edit_page.html">...</a>
+            <a class="btn btn-secondary" href="{{ route('edit_fiat') }}">...</a>
         </div>
     </div>
 

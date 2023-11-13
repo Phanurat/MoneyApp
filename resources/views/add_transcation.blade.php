@@ -19,14 +19,14 @@
             </div>
             <div class="mb-3">
                 <label for="valueinput" class="form-label">ประเภท</label>
-                <select name="select_type" id="select-type">
-
+                <select name="select_type" id="select-type" required>
+                    <option value="" disabled selected> --- เลือกประเภท --- </option>
                     <option value="income">รายได้</option>
                     <option value="expense">รายจ่าย</option>
+                    <option value="" disabled selected> ---- </option>
+                    <option value="inbank">รายได้ (ธนาคาร)</option>
+                    <option value="exbank">รายจ่าย (ธนาคาร)</option>
                 </select>
-            </div>
-            <div class="mb-3">
-                <a href="add_transcation_bank.php"><button type="button">เพิ่มรายการ ธนาคาร</button></a>
             </div>
             <button type="submit" class="btn btn-primary">บันทึกรายการ</button>
           </form>

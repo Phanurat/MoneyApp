@@ -36,6 +36,7 @@ Route::middleware([
 
 //Link path files
 Route::get('/add-transcation', [ControllerLink::class, 'addTranscation'])->name('add_transcation');
+Route::get('/edit-fiat', [ControllerLink::class, 'editFiat'])->name('edit_fiat');
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
