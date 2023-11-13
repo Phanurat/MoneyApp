@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ControllerLink;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ Route::middleware([
         //return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/add-transcation', [ControllerLink::class, 'addTranscation'])->name('add_transcation');
 
 
 ?>

@@ -1,3 +1,27 @@
+<style>
+    /* เพิ่มรายงาน button */
+    .add-report-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #0074cc;
+        color: #fff;
+        border: none;
+        border-radius: 15px;
+        padding: 10px 20px;
+        margin-top: 10px; /* ระยะห่างบน 10px */
+        margin-left: auto; /* วางตรงกลางด้านซ้าย */
+        margin-right: auto; /* วางตรงกลางด้านขวา */
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        cursor: pointer;
+    }
+    .add-report-button:hover {
+        background-color: #0056a0;
+    }
+</style>
+
 <x-app-layout>
     <x-slot name="header">
         <h5 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -12,8 +36,6 @@
                 <span class="input-group-text">
                     {{ isset($wallet_bank[0]->wallet_bank) ? $wallet_bank[0]->wallet_bank : 0 }} บาท
                 </span>
-                
-
             </div>
             <a class="btn btn-secondary" href="edit_page.html">...</a>
         </div>
@@ -61,4 +83,8 @@
             </div>
         </div>
     </div>
+
+    <div style="margin-top: 10px;"></div>
+    <a href="{{ route('add_transcation') }}" class="add-report-button">เพิ่มรายการ</a>
+
 </x-app-layout>
