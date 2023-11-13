@@ -4,13 +4,11 @@
             เพิ่มรายการ
         </h5>
     </x-slot>
-    
-    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
+
+    <div style="margin-top: 10px;"></div>
+    <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
         <form method="post" action="{{ route('save_transcation') }}">
             @csrf
-            {{ $name[0]->name }}
-            {{ $name[0]->id }}
-
             <div class="mb-3">
               <label for="nameinput" class="form-label">ชื่อรายการ</label>
               <input type="text" class="form-control" name="name_trans">

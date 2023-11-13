@@ -24,6 +24,9 @@ class ControllerLink extends Controller
 
     public function saveTransaction(Request $request)
     {
+        $user = auth()->user();
+        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+
         $name = $request->input('name_trans');
         $value = $request->input('value_trans');
         $type = $request->input('select_type');
@@ -39,6 +42,8 @@ class ControllerLink extends Controller
             'value'=>$value,
             'type'=>$type,
             'created_at'=>$time_at,
+            'user_name'=>$userdata[0]->name,
+
         ]);
 
         return redirect()->back();
