@@ -55,6 +55,20 @@ class ControllerLink extends Controller
 
         return redirect()->route('edit_fiat');
     }
+    //Update Fiat From
+    public function updateFiat(Request $request)
+    {
+        $user = auth()->user();
+        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+        //fiat update input from form edit_fiat
+        $fiat_input = $request->input('fiat_update');
+
+        $update_fiat = DB::table('transcations')
+            ->where('user_name', $userdata[0]->name)
+            ->latest('id_transaction')
+            ->limit(1)
+            ->update(['fiat_wallet' => $fiat_input]);
+    }
 
     //insert into Transaction
     public function saveTransaction(Request $request)
