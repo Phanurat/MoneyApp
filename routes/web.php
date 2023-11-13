@@ -40,5 +40,6 @@ Route::get('/edit-fiat', [ControllerLink::class, 'editFiat'])->name('edit_fiat')
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
+Route::post('/update-fiat', [ControllerLink::class, 'updateFiat'])->name('update_fiat');
 
 ?>
