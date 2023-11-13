@@ -26,9 +26,16 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        $user = auth()->user(); // ดึงข้อมูลผู้ใช้ที่ล็อกอินอยู่
-        $wallet_bank = DB::table('bank')->select('wallet_bank')->where('id', $user->id)->get();
-        return view('dashboard', compact('wallet_bank'));
+        $user = auth()->user();
+        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+
+        $name = DB::table('transcations')->select('id_transaction', 'fiat_wallet')
+        ->where('user_name', $userdata[0]->name)
+        ->whereNotNull('fiat_wallet')
+        ->orderBy('id_transaction', 'desc')
+        ->limit(1)
+        ->get();
+        return view('dashboard', compact('name'));
 
         //return view('dashboard');
     })->name('dashboard');

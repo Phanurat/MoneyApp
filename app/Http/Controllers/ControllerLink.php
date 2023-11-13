@@ -38,7 +38,6 @@ class ControllerLink extends Controller
         ->get();
 
         return view('edit_fiat', compact('name'));
-
     }
     //Update Fiat From
     public function updateFiat(Request $request)
@@ -53,6 +52,8 @@ class ControllerLink extends Controller
             ->latest('id_transaction')
             ->limit(1)
             ->update(['fiat_wallet' => $fiat_input]);
+
+        return redirect()->route('edit_fiat');
     }
 
     //insert into Transaction
@@ -61,8 +62,8 @@ class ControllerLink extends Controller
         $user = auth()->user();
         $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
 
-        $name = $request->input('name_trans');
-        $value = $request->input('value_trans');
+        $name_trans = $request->input('name_trans');
+        $value_trans = $request->input('value_trans');
         $type = $request->input('select_type');
 
         //Set Time Zone Asia
@@ -71,16 +72,24 @@ class ControllerLink extends Controller
         date_default_timezone_set('Asia/Bangkok');
         $time_at = Carbon::now('Asia/Bangkok');
 
+        //select 
+        $name = DB::table('transcations')->select('id_transaction', 'fiat_wallet')
+        ->where('user_name', $userdata[0]->name)
+        ->whereNotNull('fiat_wallet')
+        ->orderBy('id_transaction', 'desc')
+        ->limit(1)
+        ->get();
+
         DB::table('transcations')->insert([
-            'name_transaction'=>$name,
-            'value'=>$value,
+            'name_transaction'=>$name_trans,
+            'value'=>$value_trans,
             'type'=>$type,
             'created_at'=>$time_at,
             'user_name'=>$userdata[0]->name,
-
+            'fiat_wallet'=>$name[0]->fiat_wallet,
         ]);
 
-        return redirect()->back();
+        return redirect()->route('dashboard');
     }
 
 }

@@ -34,7 +34,7 @@
             <input id="input4" class="form-control" type="text" placeholder="เงินสด" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
                 <span class="input-group-text">
-                    {{ isset($wallet_bank[0]->wallet_bank) ? $wallet_bank[0]->wallet_bank : 0 }} บาท
+                    {{ $name[0]->fiat_wallet }} บาท
                 </span>
             </div>
             <a class="btn btn-secondary" href="{{ route('edit_fiat') }}">...</a>
