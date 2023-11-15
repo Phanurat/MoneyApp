@@ -1,0 +1,30 @@
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* เพิ่มเส้นขอบด้านล่าง */
+}
+
+.circle-button {
+    width: 50px;
+    height: 50px;
+    background-color: #3a73ee;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 24px;
+    color: #fff;
+}
+
+.circle-button:hover {
+    background-color: #8bbee0;
+}
+
+/* เพิ่มระยะห่างด้านบนและล่างของแต่ละบรรทัด */
+.card + .card {
+    margin-top: 1px;
+}

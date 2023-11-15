@@ -1,0 +1,31 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    display: flex; /* เพิ่มนี้เพื่อใช้ Flexbox */
+    justify-content: space-between; /* ทำให้รายการชิดขวาและรายการ logout ชิดซ้าย */
+    align-items: center; /* จัดให้รายการตรงกลางตามความสูงของ ul */
+}
+
+li .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+li.logout a {
+    display: inline-block;
+    color: rgb(241, 176, 176); /* สีของตัวอักษรสำหรับ class logout */
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+

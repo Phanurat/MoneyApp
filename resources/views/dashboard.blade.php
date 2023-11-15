@@ -33,20 +33,19 @@
         <div class="input-group">
             <input id="input4" class="form-control" type="text" placeholder="เงินสด" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
-                @if (isset($name[0]) && isset($name[0]->fiat_wallet))
-                    <span class="input-group-text">
-                        {{ $name[0]->fiat_wallet }} บาท
-                    </span>
-                @else
-                    <span class="input-group-text">
-                        0 บาท
-                    </span>
-                @endif
-
+                <span class="input-group-text">
+                    @if (isset($name[0]) && isset($name[0]->fiat_wallet))
+                        <span class="input-group-text">
+                            {{ $name[0]->fiat_wallet }} บาท
+                        </span>
+                    @else
+                        <span class="input-group-text">
+                            0 บาท
+                        </span>
+                    @endif
+                </span>
             </div>
             <a class="btn btn-secondary" href="{{ route('edit_fiat') }}">...</a>
-
-
         </div>
     </div>
 
@@ -55,9 +54,19 @@
         <div class="input-group">
             <input id="input4" class="form-control" type="text" placeholder="บัญชีธนาคาร" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
-                <span class="input-group-text">1,000 บาท</span>
+                <span class="input-group-text">
+                    @if(isset($bankMoney[0]) && isset($bankMoney[0]->wallet_bank))
+                        <span class="input-group-text">
+                            {{ $bankMoney[0]->wallet_bank }} บาท
+                        </span>
+                    @else
+                        <span class="input-group-text">
+                            0 บาท
+                        </span>
+                    @endif
+                </span>
             </div>
-            <a class="btn btn-secondary" href="{{ route('edit_fiat') }}">...</a>
+            <a class="btn btn-secondary" href="{{ route('edit_bank') }}">...</a>
         </div>
     </div>
 

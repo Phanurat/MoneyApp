@@ -1,0 +1,20 @@
+/* เพิ่มรายงาน button */
+.add-report-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0074cc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px; /* เพิ่มระยะห่างขอบบน 10px */
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+.add-report-button:hover {
+    background-color: #0056a0;
+}
+

@@ -1,0 +1,49 @@
+/* CSS สำหรับหน้าจอทั่วไป (desktop) */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* CSS สำหรับโทรศัพท์และหน้าจอขนาดเล็ก */
+@media (max-width: 768px) {
+    input[type="text"] {
+        width: 100%;
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* CSS สำหรับปุ่ม */
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+}

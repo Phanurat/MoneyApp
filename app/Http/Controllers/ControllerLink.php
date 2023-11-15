@@ -38,6 +38,13 @@ class ControllerLink extends Controller
 
         return view('edit_fiat', compact('name'));
     }
+    //edit_fiat
+    public function editBank()
+    {
+        return view('edit_bank');
+    }
+
+
     //Update Fiat From
     public function updateFiat(Request $request)
     {

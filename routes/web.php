@@ -35,7 +35,14 @@ Route::middleware([
         ->orderBy('id_transaction', 'desc')
         ->limit(1)
         ->get();
-        return view('dashboard', compact('name'));
+
+        //Show Bank Money To Dashboard
+        $bankMoney = DB::table('bank')
+        ->select('wallet_bank')
+        ->where('user_name', $userdata[0]->name)
+        ->get();
+
+        return view('dashboard', compact('name', 'bankMoney'));
 
         //return view('dashboard');
     })->name('dashboard');
@@ -44,6 +51,7 @@ Route::middleware([
 //Link path files
 Route::get('/add-transcation', [ControllerLink::class, 'addTranscation'])->name('add_transcation');
 Route::get('/edit-fiat', [ControllerLink::class, 'editFiat'])->name('edit_fiat');
+Route::get('/edit-bank', [ControllerLink::class, 'editBank'])->name('edit_bank');
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
