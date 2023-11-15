@@ -38,7 +38,7 @@ class ControllerLink extends Controller
 
         return view('edit_fiat', compact('name'));
     }
-    //edit_fiat
+    //showBank
     public function editBank()
     {
         $user = auth()->user();
@@ -53,10 +53,40 @@ class ControllerLink extends Controller
         ->where('user_name', $userdata[0]->name)
         ->sum('wallet_bank');
 
-        return view('edit_bank', compact('all_bank_count', 'all_bank_sum'));
+        #Show bank
+        $show_bank_data = DB::table('bank')
+        ->select('name_bank', 'wallet_bank')
+        ->where('user_name', $userdata[0]->name)
+        ->get();
+
+        $data_fn_edit_bank = [
+            'bank_count' => $all_bank_count,
+            'bank_sum' => $all_bank_sum,
+            'bank_data' => $show_bank_data,
+        ];
+
+        //session
+        session(['all_data' => $data_fn_edit_bank]);
+
+        return view('edit_bank', compact('all_bank_count', 'all_bank_sum', 'show_bank_data'));
     }
 
+    public function addBank(){
+        $data_fn_edit_bank = session('all_data');
 
+        if ($data_fn_edit_bank) {
+           $all_bank_count = $data_fn_edit_bank['bank_count'];
+           $all_bank_sum = $data_fn_edit_bank['bank_sum'];
+           $show_bank_data = $data_fn_edit_bank['bank_data'];
+
+           return view('add_bank', compact('all_bank_count', 'all_bank_sum', 'show_bank_data'));
+           
+        }else{
+            return redirect()->route('dashboard');
+        }
+
+        //return view('add_bank');
+    }
     //Update Fiat From
     public function updateFiat(Request $request)
     {

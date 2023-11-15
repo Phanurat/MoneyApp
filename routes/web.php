@@ -52,6 +52,7 @@ Route::middleware([
 Route::get('/add-transcation', [ControllerLink::class, 'addTranscation'])->name('add_transcation');
 Route::get('/edit-fiat', [ControllerLink::class, 'editFiat'])->name('edit_fiat');
 Route::get('/edit-bank', [ControllerLink::class, 'editBank'])->name('edit_bank');
+Route::get('/add-bank', [ControllerLink::class, 'addBank'])->name('add_bank');
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
