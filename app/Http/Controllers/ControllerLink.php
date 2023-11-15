@@ -41,7 +41,19 @@ class ControllerLink extends Controller
     //edit_fiat
     public function editBank()
     {
-        return view('edit_bank');
+        $user = auth()->user();
+        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+        
+        //Count bank and Sum Money
+        $all_bank_count = DB::table('bank')
+        ->where('user_name', $userdata[0]->name)
+        ->count('name_bank');
+
+        $all_bank_sum = DB::table('bank')
+        ->where('user_name', $userdata[0]->name)
+        ->sum('wallet_bank');
+
+        return view('edit_bank', compact('all_bank_count', 'all_bank_sum'));
     }
 
 
