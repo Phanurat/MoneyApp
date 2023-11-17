@@ -19,13 +19,8 @@
                 <h4><b>ชื่อธนาคาร : {{ $bank->name_bank }} </b></h4>
                 <h4><b>จำนวนเงิน : {{ number_format($bank->wallet_bank) }}</b></h4>
             </div>
-
-            <!--route PATH edit_manage_bank, 'id'=> $bank->id -->
-            
-            <p>รหัสธนาคาร: {{ $bank->id_bank }}</p>
             <a class="" href="{{ route('edit_manage_bank', ['id_bank' => $bank->id_bank]) }}">แก้ไข</a>
             <a class="" href="{{ route('edit_manage_bank', ['id_bank' => $bank->id_bank]) }}">ลบ</a>
-
         </div>
     @endforeach
     
