@@ -14,7 +14,7 @@
 
                 <label for="valueinput" class="form-label">ชื่อธนาคารเดิม : 
                     {{$select_bank_name[0]->name_bank}}
-                    <input type="text" class="form-control" name="name_update" placeholder="{{$select_bank_name[0]->name_bank}}">
+                    <input type="text" class="form-control" name="name_update" value="{{$select_bank_name[0]->name_bank}}">
                 </label>
                 
                 <div style="margin-top: 10px;"></div>
@@ -26,12 +26,13 @@
                     @endif
                 </label>
                 
-                <input type="number" class="form-control" name="money_update" placeholder="@if(isset($all_bank_sum)&&isset($all_bank_sum)){{$all_bank_sum}}@else 0 บาท@endif">
+                <input type="number" class="form-control" name="money_update" value="@if(isset($all_bank_sum)&&isset($all_bank_sum)){{$all_bank_sum}}@else 0 @endif"> 
                 <div style="margin-top: 10px;"></div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+                </div>
             </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
-            </div>   
+               
         </form>
     </div>
 
