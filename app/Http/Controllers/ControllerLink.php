@@ -155,9 +155,7 @@ class ControllerLink extends Controller
         ->where('id_bank', $id_bank)
         ->get();
 
-        $name_bank = $select_bank_name[0]->name_bank;
-
-        return view('edit_manage_bank', compact('id_bank','all_bank_sum', 'name_bank'));
+        return view('edit_manage_bank', compact('id_bank','all_bank_sum', 'select_bank_name'));
     }
 
 /**********************************************************************************************************/
@@ -181,6 +179,37 @@ class ControllerLink extends Controller
 
         return redirect()->route('edit_fiat');
     }
+
+    //Update Bank From
+    public function updateBank(Request $request)
+    {
+        $user = auth()->user();
+        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+
+        $id_bank = $request->input('id_bank');
+        $name_update = $request->input('name_update');
+        $money_update = $request->input('money_update');
+
+        $update_bank = DB::table('bank')
+            ->where('id_bank', $id_bank)
+            ->update(['name_bank' => $name_update,'wallet_bank' => $money_update]);
+        
+        return redirect()->route('edit_bank');
+
+        //UPDATE `bank` SET `name_bank`='BinanceT',`wallet_bank`='702' WHERE `id_bank` = 3;
+    }
+    /*public function updateBank(Request $request)
+    {
+        $id_bank = $request->input('id_bank');
+        $name_update = $request->input('name_update');
+        $money_update = $request->input('money');
+
+        $update_bank = DB::table('bank')
+            ->where('id_bank', $id_bank)
+            ->update(['name_bank' => $name_update, 'wallet_bank' => $money_update]);
+        
+        return redirect()->route('edit_manage_bank');
+    }*/
 
 /**********************************************************************************************************/
 /**********************************************************************************************************/

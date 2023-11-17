@@ -7,29 +7,33 @@
 
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
-        <form method="post" action="#update_bank">
+        <form method="post" action="{{ route('update_bank') }}">
             @csrf
             <div class="mb-3">
+                <input type="hidden" class="form-control" name="id_bank" value="{{ $id_bank }}">
+
                 <label for="valueinput" class="form-label">ชื่อธนาคารเดิม : 
-                    {{ $name_bank }}
-                <input type="text" class="form-control" name="fiat_update" placeholder="{{ $name_bank }}">
+                    {{$select_bank_name[0]->name_bank}}
+                    <input type="text" class="form-control" name="name_update" placeholder="{{$select_bank_name[0]->name_bank}}">
+                </label>
                 
                 <div style="margin-top: 10px;"></div>
                 <label for="valueinput" class="form-label">จำนวนเงินเดิม : 
                     @if (isset($all_bank_sum) && isset($all_bank_sum)) 
-                        {{ $all_bank_sum }}
+                        {{ $all_bank_sum }} บาท
                     @else
-                        0
-                        บาท</label>
+                        0 บาท
                     @endif
-                <input type="number" class="form-control" name="fiat_update" placeholder="@if(isset($all_bank_sum)&&isset($all_bank_sum)){{$all_bank_sum}}@else 0 บาท@endif">
+                </label>
+                
+                <input type="number" class="form-control" name="money_update" placeholder="@if(isset($all_bank_sum)&&isset($all_bank_sum)){{$all_bank_sum}}@else 0 บาท@endif">
                 <div style="margin-top: 10px;"></div>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
             </div>   
-          </form>
-          
-    </div> 
+        </form>
+    </div>
+
 
 </x-app-layout>

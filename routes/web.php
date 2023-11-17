@@ -64,5 +64,6 @@ Route::get('/edit-manage-bank', [ControllerLink::class, 'editManageBank'])->name
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
 Route::post('/update-fiat', [ControllerLink::class, 'updateFiat'])->name('update_fiat');
 Route::post('/add-ac-bank', [ControllerLink::class, 'addAcBank'])->name('add_ac_bank');
+Route::post('/update-bank', [ControllerLink::class, 'updateBank'])->name('update_bank');
 
 ?>
