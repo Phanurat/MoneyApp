@@ -43,6 +43,8 @@ class ControllerLink extends Controller
     {
         $user = auth()->user();
         $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+
+        $show_id_bank = DB::table('bank')->select('id_bank')->where('user_name', $user->id)->get();
         
         //Count bank and Sum Money
         $all_bank_count = DB::table('bank')
@@ -55,23 +57,25 @@ class ControllerLink extends Controller
 
         #Show bank
         $show_bank_data = DB::table('bank')
-        ->select('name_bank', 'wallet_bank')
+        ->select('name_bank', 'wallet_bank', 'id_bank')
         ->where('user_name', $userdata[0]->name)
         ->get();
 
+        //array
         $data_fn_edit_bank = [
             'bank_count' => $all_bank_count,
             'bank_sum' => $all_bank_sum,
             'bank_data' => $show_bank_data,
         ];
 
-        //session
+        //session to function
         session(['all_data' => $data_fn_edit_bank]);
 
-        return view('edit_bank', compact('all_bank_count', 'all_bank_sum', 'show_bank_data'));
+        return view('edit_bank',compact('all_bank_count', 'all_bank_sum', 'show_bank_data','show_id_bank'));
     }
 
     public function addBank(){
+        //call function session
         $data_fn_edit_bank = session('all_data');
 
         if ($data_fn_edit_bank) {
@@ -87,6 +91,30 @@ class ControllerLink extends Controller
 
         //return view('add_bank');
     }
+    //Add Bank From
+    public function addAcBank(Request $request){
+        $user = auth()->user();
+        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+        $name_bank = $request->input('name_bank');
+        $wallet_bank = $request->input('wallet_bank');
+
+        DB::table('bank')->insert([
+            'name_bank'=>$name_bank,
+            'user_name'=>$userdata[0]->name,
+            'wallet_bank'=>$wallet_bank,
+        ]);
+
+        return redirect()->route('edit_bank');
+    }
+
+    //editManageBank
+    public function editManageBank(Request $request){
+        $user = auth()->user();
+        $id_bank = $request->input('id_bank');
+
+        return view('edit_manage_bank', compact('id_bank'));
+    }
+
     //Update Fiat From
     public function updateFiat(Request $request)
     {

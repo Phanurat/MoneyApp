@@ -36,7 +36,7 @@
                 <span class="input-group-text">
                     @if (isset($name[0]) && isset($name[0]->fiat_wallet))
                         <span class="input-group-text">
-                            {{ $name[0]->fiat_wallet }} บาท
+                            {{ number_format($name[0]->fiat_wallet) }} บาท
                         </span>
                     @else
                         <span class="input-group-text">
@@ -55,9 +55,9 @@
             <input id="input4" class="form-control" type="text" placeholder="บัญชีธนาคาร" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
                 <span class="input-group-text">
-                    @if(isset($bankMoney[0]) && isset($bankMoney[0]->wallet_bank))
+                    @if(isset($all_bank_sum) && isset($bankMoney[0]->wallet_bank))
                         <span class="input-group-text">
-                            {{ $bankMoney[0]->wallet_bank }} บาท
+                            {{ number_format($all_bank_sum) }} บาท
                         </span>
                     @else
                         <span class="input-group-text">
