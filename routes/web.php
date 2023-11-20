@@ -47,6 +47,8 @@ Route::middleware([
         ->where('user_name', $userdata[0]->name)
         ->sum('wallet_bank');
 
+        //Show No income to Dashboard
+
         return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum'));
 
         //return view('dashboard');
@@ -59,11 +61,13 @@ Route::get('/edit-fiat', [ControllerLink::class, 'editFiat'])->name('edit_fiat')
 Route::get('/edit-bank', [ControllerLink::class, 'editBank'])->name('edit_bank');
 Route::get('/add-bank', [ControllerLink::class, 'addBank'])->name('add_bank');
 Route::get('/edit-manage-bank', [ControllerLink::class, 'editManageBank'])->name("edit_manage_bank");
+Route::get('/delete-bank', [ControllerLink::class, 'deleteBank'])->name("delete_bank");
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
 Route::post('/update-fiat', [ControllerLink::class, 'updateFiat'])->name('update_fiat');
 Route::post('/add-ac-bank', [ControllerLink::class, 'addAcBank'])->name('add_ac_bank');
 Route::post('/update-bank', [ControllerLink::class, 'updateBank'])->name('update_bank');
+Route::post('/submit-delete-bank', [ControllerLink::class, 'submitDeleteBank'])->name('submit_delete_bank');
 
 ?>

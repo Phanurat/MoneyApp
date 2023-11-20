@@ -1,3 +1,4 @@
+{{$id_bank}}
 <x-app-layout>
     <x-slot name="header">
         <h5 class="font-semibold text-xl text-gray-800 leading-tight">

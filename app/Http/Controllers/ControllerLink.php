@@ -157,6 +157,33 @@ class ControllerLink extends Controller
 
         return view('edit_manage_bank', compact('id_bank','all_bank_sum', 'select_bank_name'));
     }
+/**********************************************************************************************************/
+/**********************************************************************************************************/
+/**********************************************************************************************************/
+/**********************************************************************************************************/
+    //Delete Bank
+    public function deleteBank(Request $request){
+        $user = auth()->user();
+        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+        $id_bank = $request->input('id_bank');
+
+        $show_data_bank = DB::table('bank')->select('name_bank', 'wallet_bank')->where('id_bank', $id_bank)->get();
+        // ทำสิ่งที่ต้องการด้วย $id_bank ที่ได้รับมา
+        return view('delete_bank', compact('id_bank', 'show_data_bank'));
+    }
+
+    //Submit Delete Bank
+    public function submitDeleteBank(Request $request){
+        $user = auth()->user();
+        $id_bank = $request->input('id_bank');
+
+        DB::table('bank')
+        ->where('id_bank', $id_bank)
+        ->delete();
+        return redirect()->route('dashboard');
+    }
+    
+
 
 /**********************************************************************************************************/
 /**********************************************************************************************************/
