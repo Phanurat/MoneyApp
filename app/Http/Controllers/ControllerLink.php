@@ -196,7 +196,16 @@ class ControllerLink extends Controller
         ->where('user_name', $userdata[0]->name)
         ->sum('wallet_noincome');
 
-        return view('edit_no_income', compact('noincome_sum'));
+        $noincome_count = DB::table('no_income')
+        ->where('user_name', $userdata[0]->name)
+        ->count('id_noincome');
+
+        $all_noincome = DB::table('no_income')
+        ->select('id_noincome', 'name_noincome', 'wallet_noincome')
+        ->where('user_name', $userdata[0]->name)
+        ->get();
+
+        return view('edit_no_income', compact('noincome_sum', 'all_noincome', 'noincome_count'));
         
     }
 
@@ -209,7 +218,16 @@ class ControllerLink extends Controller
         ->where('user_name', $userdata[0]->name)
         ->sum('wallet_noexpense');
 
-        return view('edit_no_expense', compact('noexpense_sum'));
+        $noexpense_count = DB::table('no_expense')
+        ->where('user_name', $userdata[0]->name)
+        ->count('id_noexpense');
+
+        $all_noexpense = DB::table('no_expense')
+        ->select('id_noexpense', 'name_noexpense', 'wallet_noexpense')
+        ->where('user_name', $userdata[0]->name)
+        ->get();
+
+        return view('edit_no_expense', compact('noexpense_sum', 'noexpense_count', 'all_noexpense'));
     }
     
 

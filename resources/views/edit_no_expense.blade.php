@@ -6,20 +6,22 @@
     </x-slot>
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
-          <h4><b>ค้างจ่ายทั้งหมด : 
+          <h4><b>ค้างจ่ายทั้งหมด : {{ $noexpense_count }}
             <a href="#" style="color: rgb(11, 62, 104); font-size:24px;"><button>เพิ่มค้างจ่าย</button></a></b></h4>
-          <h4><b>เงินทั้งหมด : {{$noexpense_sum}} บาท </b></h4>
+          <h4><b>เงินทั้งหมด : {{number_format($noexpense_sum)}} บาท </b></h4>
     </div>
 
-    
+    @foreach ($all_noexpense as $noexpense)
         <div style="margin-top: 10px;"></div>
         <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
             <div class="container">
-                <h4><b>ชื่อ :  </b></h4>
-                <h4><b>จำนวนเงิน : </b></h4>
+                <h4><b>ชื่อ :  {{ $noexpense->name_noexpense }}</b></h4>
+                <h4><b>จำนวนเงิน : {{ $noexpense->wallet_noexpense }}</b></h4>
             </div>
             <a class="" href="#id">แก้ไข</a>
             <a class="" href="#id">ลบ</a>
         </div>
+    @endforeach
+        
     
 </x-app-layout>
