@@ -75,7 +75,17 @@
         <div class="input-group">
             <input id="input4" class="form-control" type="text" placeholder="ค้างรับ" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
-                <span class="input-group-text">1,000 บาท</span>
+                <span class="input-group-text">
+                    @if(isset($noincome) && isset($noincome[0]->wallet_noincome))
+                        <span class="input-group-text">
+                            {{ number_format($noincome) }} บาท
+                        </span>
+                    @else
+                        <span class="input-group-text">
+                            0 บาท
+                        </span>
+                    @endif
+                </span>
             </div>
             <a class="btn btn-secondary" href="edit_page.html">...</a>
         </div>
@@ -86,7 +96,17 @@
         <div class="input-group">
             <input id="input4" class="form-control" type="text" placeholder="ค้างจ่าย" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
-                <span class="input-group-text">1,000 บาท</span>
+                <span class="input-group-text">
+                    @if(isset($noexpense) && isset($noexpense[0]->wallet_noexpense))
+                        <span class="input-group-text">
+                            {{ number_format($noexpense) }} บาท
+                        </span>
+                    @else
+                        <span class="input-group-text">
+                            0 บาท
+                        </span>
+                    @endif
+                </span>
             </div>
             <a class="btn btn-secondary" href="edit_page.html">...</a>
         </div>

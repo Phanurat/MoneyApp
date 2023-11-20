@@ -48,8 +48,18 @@ Route::middleware([
         ->sum('wallet_bank');
 
         //Show No income to Dashboard
+        $noincome = DB::table('no_income')
+        ->select('wallet_noincome')
+        ->where('user_name', $userdata[0]->name)
+        ->get();
 
-        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum'));
+        //Show No expense to Dashboard
+        $noexpense = DB::table('no_expense')
+        ->select('wallet_noexpense')
+        ->where('user_name', $userdata[0]->name)
+        ->get();
+
+        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome', 'noexpense'));
 
         //return view('dashboard');
     })->name('dashboard');
