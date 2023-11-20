@@ -48,18 +48,16 @@ Route::middleware([
         ->sum('wallet_bank');
 
         //Show No income to Dashboard
-        $noincome = DB::table('no_income')
-        ->select('wallet_noincome')
+        $noincome_sum = DB::table('no_income')
         ->where('user_name', $userdata[0]->name)
-        ->get();
+        ->sum('wallet_noincome');
 
         //Show No expense to Dashboard
-        $noexpense = DB::table('no_expense')
-        ->select('wallet_noexpense')
+        $noexpense_sum = DB::table('no_expense')
         ->where('user_name', $userdata[0]->name)
-        ->get();
+        ->sum('wallet_noexpense');
 
-        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome', 'noexpense'));
+        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 'noexpense_sum'));
 
         //return view('dashboard');
     })->name('dashboard');
@@ -72,6 +70,9 @@ Route::get('/edit-bank', [ControllerLink::class, 'editBank'])->name('edit_bank')
 Route::get('/add-bank', [ControllerLink::class, 'addBank'])->name('add_bank');
 Route::get('/edit-manage-bank', [ControllerLink::class, 'editManageBank'])->name("edit_manage_bank");
 Route::get('/delete-bank', [ControllerLink::class, 'deleteBank'])->name("delete_bank");
+Route::get('/edit-no-income', [ControllerLink::class, 'editNoIncome'])->name('edit_no_income');
+Route::get('/edit-no-expense', [ControllerLink::class, 'editNoExpense'])->name('edit_no_expense');
+
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');

@@ -182,6 +182,35 @@ class ControllerLink extends Controller
         ->delete();
         return redirect()->route('dashboard');
     }
+/**********************************************************************************************************/
+/**********************************************************************************************************/
+/**********************************************************************************************************/
+/**********************************************************************************************************/
+
+    //No Income
+    public function editNoIncome(){
+        $user = auth()->user();
+        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+        
+        $noincome_sum = DB::table('no_income')
+        ->where('user_name', $userdata[0]->name)
+        ->sum('wallet_noincome');
+
+        return view('edit_no_income', compact('noincome_sum'));
+        
+    }
+
+    //No Expense
+    public function editNoExpense(){
+        $user = auth()->user();
+        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+
+        $noexpense_sum = DB::table('no_expense')
+        ->where('user_name', $userdata[0]->name)
+        ->sum('wallet_noexpense');
+
+        return view('edit_no_expense', compact('noexpense_sum'));
+    }
     
 
 
