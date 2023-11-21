@@ -14,17 +14,17 @@
             <div class="mb-3">
                 <input type="hidden" class="form-control" name="id_no_income" value="">
 
-                <label for="valueinput" class="form-label">ชื่อเดิม :
+                <label for="valueinput" class="form-label">ชื่อเดิม : {{ $data_no_expense[0]->name_noexpense }}
                     
-                    <input type="text" class="form-control" name="name_update" value="">
+                    <input type="text" class="form-control" name="name_update" value="{{ $data_no_expense[0]->name_noexpense }}">
                 </label>
                 
                 <div style="margin-top: 10px;"></div>
                 <label for="valueinput" class="form-label">จำนวนเงินเดิม : 
-                    
+                    {{ $data_no_expense[0]->wallet_noexpense }}
                 </label>
                 
-                <input type="number" class="form-control" name="money_update" value="#"> 
+                <input type="number" class="form-control" name="money_update" value="{{ $data_no_expense[0]->wallet_noexpense }}"> 
                 <div style="margin-top: 10px;"></div>
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>

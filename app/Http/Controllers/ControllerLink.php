@@ -23,7 +23,7 @@ class ControllerLink extends Controller
     {
         $user = auth()->user();
         //return view('dashboard', compact('wallet_bank'));
-        $name = DB::table('users')->select('name', 'id')->where('id', $user->id)->get(); // ใช้ first() เพื่อให้ได้ผลลัพธ์เป็น object แทน array
+        $name = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
         return view('add_transcation', compact('name'));
     }
 
@@ -242,10 +242,12 @@ class ControllerLink extends Controller
         $user = auth()->user();
         $id_income = $request->input('id');
 
-        /*$data_no_income = DB::table('no_income')
-        ->select()*/
+        $data_no_income = DB::table('no_income')
+        ->select('name_noincome', 'wallet_noincome')
+        ->where('id_noincome',$id_income)
+        ->get();
         
-        return view('edit_mn_no_income', compact('id_income'));
+        return view('edit_mn_no_income', compact('id_income', 'data_no_income'));
     }
 
     //=============================================================================================
@@ -307,10 +309,12 @@ class ControllerLink extends Controller
         $user = auth()->user();
         $id_expense = $request->input('id');
 
-        /*$data_no_income = DB::table('no_income')
-        ->select()*/
+        $data_no_expense = DB::table('no_expense')
+        ->select('name_noexpense', 'wallet_noexpense')
+        ->where('id_noexpense', $id_expense)
+        ->get();
         
-        return view('edit_mn_no_expense', compact('id_expense'));
+        return view('edit_mn_no_expense', compact('id_expense','data_no_expense'));
     }
     
     
@@ -335,8 +339,6 @@ class ControllerLink extends Controller
 
         return redirect()->route('edit_fiat');
     }
-
-    
 
 /**********************************************************************************************************/
 /**********************************************************************************************************/
