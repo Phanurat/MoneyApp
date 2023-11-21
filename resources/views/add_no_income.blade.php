@@ -6,7 +6,7 @@
     </x-slot>
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
-        <form method="post" action="#">
+        <form method="post" action="{{route('add_ac_no_income')}}">
             @csrf
             <div class="mb-3">
                 <label for="name_bank">ชื่อรายการ : </label>

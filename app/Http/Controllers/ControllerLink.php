@@ -216,6 +216,27 @@ class ControllerLink extends Controller
         return view('add_no_income');
     }
 
+    //Add Account No-Income
+    public function addAcNoIncome(Request $request){
+        $user = auth()->user();
+        $userdata = DB::table('users')
+        ->select('name', 'id')
+        ->where('id', $user->id)
+        ->get();
+        
+        $name_no_income = $request->input('name_no_income');
+        $wallet_no_income = $request->input('wallet_no_income');
+
+        DB::table('no_income')
+            ->insert([
+                'name_noincome'=>$name_no_income,
+                'user_name'=>$userdata[0]->name,
+                'wallet_noincome'=>$wallet_no_income,
+            ]);
+
+        return redirect()->route('edit_no_income');
+    }
+
     //=============================================================================================
     //=============================================================================================
     //=============================================================================================
@@ -241,12 +262,35 @@ class ControllerLink extends Controller
         return view('edit_no_expense', compact('noexpense_sum', 'noexpense_count', 'all_noexpense'));
     }
 
-    //Add-No-Income
+    //Add-No-Expense
     public function addNoExpense(){
         $user = auth()->user();
 
         return view('add_no_expense');
     }
+
+    //Add Account No-Income
+    public function addAcNoExpense(Request $request){
+        $user = auth()->user();
+        $userdata = DB::table('users')
+        ->select('name', 'id')
+        ->where('id', $user->id)
+        ->get();
+        
+        $name_no_expense = $request->input('name_no_expense');
+        $wallet_no_expense = $request->input('wallet_no_expense');
+
+        DB::table('no_expense')
+            ->insert([
+                'name_noexpense'=>$name_no_expense,
+                'user_name'=>$userdata[0]->name,
+                'wallet_noexpense'=>$wallet_no_expense,
+            ]);
+
+        return redirect()->route('edit_no_expense');
+    }
+
+    
     
 /**********************************************************************************************************/
 /**********************************************************************************************************/
@@ -269,6 +313,8 @@ class ControllerLink extends Controller
 
         return redirect()->route('edit_fiat');
     }
+
+    
 
 /**********************************************************************************************************/
 /**********************************************************************************************************/
