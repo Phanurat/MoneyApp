@@ -18,7 +18,8 @@
                 <h4><b>ชื่อ :  {{ $noexpense->name_noexpense }}</b></h4>
                 <h4><b>จำนวนเงิน : {{ $noexpense->wallet_noexpense }}</b></h4>
             </div>
-            <a class="" href="#id">แก้ไข</a>
+            <a class="" href="#id">ใช้คืน</a>
+            <a class="" href="{{route('edit_mn_no_expense', ['id'=>$noexpense->id_noexpense])}}">แก้ไข</a>
             <a class="" href="#id">ลบ</a>
         </div>
     @endforeach

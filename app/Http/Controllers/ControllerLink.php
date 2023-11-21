@@ -237,6 +237,17 @@ class ControllerLink extends Controller
         return redirect()->route('edit_no_income');
     }
 
+    //Manage Accoute No-Income
+    public function editMnNoIncome(Request $request){
+        $user = auth()->user();
+        $id_income = $request->input('id');
+
+        /*$data_no_income = DB::table('no_income')
+        ->select()*/
+        
+        return view('edit_mn_no_income', compact('id_income'));
+    }
+
     //=============================================================================================
     //=============================================================================================
     //=============================================================================================
@@ -290,6 +301,17 @@ class ControllerLink extends Controller
         return redirect()->route('edit_no_expense');
     }
 
+    //editMnNoExpense
+    //Manage Accoute No-Income
+    public function editMnNoExpense(Request $request){
+        $user = auth()->user();
+        $id_expense = $request->input('id');
+
+        /*$data_no_income = DB::table('no_income')
+        ->select()*/
+        
+        return view('edit_mn_no_expense', compact('id_expense'));
+    }
     
     
 /**********************************************************************************************************/
