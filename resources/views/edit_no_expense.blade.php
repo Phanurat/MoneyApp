@@ -7,7 +7,7 @@
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
           <h4><b>ค้างจ่ายทั้งหมด : {{ $noexpense_count }}
-            <a href="#" style="color: rgb(11, 62, 104); font-size:24px;"><button>เพิ่มค้างจ่าย</button></a></b></h4>
+            <a href="{{route('add_no_expense')}}" style="color: rgb(11, 62, 104); font-size:24px;"><button>เพิ่มค้างจ่าย</button></a></b></h4>
           <h4><b>เงินทั้งหมด : {{number_format($noexpense_sum)}} บาท </b></h4>
     </div>
 

@@ -209,6 +209,17 @@ class ControllerLink extends Controller
         
     }
 
+    //Add-No-Income
+    public function addNoIncome(){
+        $user = auth()->user();
+
+        return view('add_no_income');
+    }
+
+    //=============================================================================================
+    //=============================================================================================
+    //=============================================================================================
+
     //No Expense
     public function editNoExpense(){
         $user = auth()->user();
@@ -229,9 +240,14 @@ class ControllerLink extends Controller
 
         return view('edit_no_expense', compact('noexpense_sum', 'noexpense_count', 'all_noexpense'));
     }
+
+    //Add-No-Income
+    public function addNoExpense(){
+        $user = auth()->user();
+
+        return view('add_no_expense');
+    }
     
-
-
 /**********************************************************************************************************/
 /**********************************************************************************************************/
 /**********************************************************************************************************/

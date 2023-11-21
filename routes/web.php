@@ -72,6 +72,8 @@ Route::get('/edit-manage-bank', [ControllerLink::class, 'editManageBank'])->name
 Route::get('/delete-bank', [ControllerLink::class, 'deleteBank'])->name("delete_bank");
 Route::get('/edit-no-income', [ControllerLink::class, 'editNoIncome'])->name('edit_no_income');
 Route::get('/edit-no-expense', [ControllerLink::class, 'editNoExpense'])->name('edit_no_expense');
+Route::get('/add-no-income', [ControllerLink::class, 'addNoIncome'])->name('add_no_income');
+Route::get('/add-no-expense', [ControllerLink::class, 'addNoExpense'])->name('add_no_expense');
 
 
 //save Form

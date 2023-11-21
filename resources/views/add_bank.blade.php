@@ -21,6 +21,6 @@
                 <input type="number" name="wallet_bank" placeholder="จำนวนเงิน">
             </div>
             <button type="submit" class="btn btn-primary">บันทึกรายการ</button>
-          </form>
+        </form>
     </div>
 </x-app-layout>

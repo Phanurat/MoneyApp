@@ -7,7 +7,7 @@
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
           <h4><b>ค้างรับทั้งหมด : {{ $noincome_count }} รายการ
-            <a href="#" style="color: rgb(11, 62, 104); font-size:24px;"><button>เพิ่มค้างรับ</button></a></b></h4>
+            <a href="{{route('add_no_income')}}" style="color: rgb(11, 62, 104); font-size:24px;"><button>เพิ่มค้างรับ</button></a></b></h4>
           <h4><b>เงินทั้งหมด : {{number_format($noincome_sum)}} บาท </b></h4>
     </div>
     @foreach ($all_noincome as $noincome)
