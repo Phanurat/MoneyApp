@@ -250,6 +250,19 @@ class ControllerLink extends Controller
         return view('edit_mn_no_income', compact('id_income', 'data_no_income'));
     }
 
+    //update edit account No-Income
+    public function updateAcNoIncome(Request $request){
+        $id_income = $request->input('id_no_income');
+        $name_update = $request->input('name_update');
+        $money_update = $request->input('money_update');
+
+        $update_no_income = DB::table('no_income')
+            ->where('id_noincome', $id_income)
+            ->update(['name_noincome'=>$name_update, 'wallet_noincome'=>$money_update]);
+
+            return redirect()->route('edit_no_income');
+    }
+
     //=============================================================================================
     //=============================================================================================
     //=============================================================================================
@@ -315,6 +328,19 @@ class ControllerLink extends Controller
         ->get();
         
         return view('edit_mn_no_expense', compact('id_expense','data_no_expense'));
+    }
+
+    //update edit account No-Income
+    public function updateAcNoExpense(Request $request){
+        $id_expense = $request->input('id_no_expense');
+        $name_update = $request->input('name_update');
+        $money_update = $request->input('money_update');
+
+        $update_no_income = DB::table('no_expense')
+            ->where('id_noexpense', $id_expense)
+            ->update(['name_noexpense'=>$name_update, 'wallet_noexpense'=>$money_update]);
+
+            return redirect()->route('edit_no_expense');
     }
     
     

@@ -86,5 +86,8 @@ Route::post('/update-bank', [ControllerLink::class, 'updateBank'])->name('update
 Route::post('/submit-delete-bank', [ControllerLink::class, 'submitDeleteBank'])->name('submit_delete_bank');
 Route::post('/add-ac-no-income', [ControllerLink::class, 'addAcNoIncome'])->name('add_ac_no_income');
 Route::post('/add-ac-no-expense', [ControllerLink::class, 'addAcNoExpense'])->name('add_ac_no_expense');
+Route::post('/update-ac-no-income', [ControllerLink::class, 'updateAcNoIncome'])->name('update_ac_no_income');
+Route::post('/update-ac-no-expense', [ControllerLink::class, 'updateAcNoExpense'])->name('update_ac_no_expense');
+
 
 ?>

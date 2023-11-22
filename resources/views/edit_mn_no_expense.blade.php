@@ -9,10 +9,10 @@
 
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
-        <form method="post" action="#">
+        <form method="post" action="{{route('update_ac_no_expense')}}">
             @csrf
             <div class="mb-3">
-                <input type="hidden" class="form-control" name="id_no_income" value="">
+                <input type="hidden" class="form-control" name="id_no_expense" value="{{$id_expense}}">
 
                 <label for="valueinput" class="form-label">ชื่อเดิม : {{ $data_no_expense[0]->name_noexpense }}
                     
