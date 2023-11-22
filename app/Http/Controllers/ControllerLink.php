@@ -37,7 +37,9 @@ class ControllerLink extends Controller
     public function editFiat()
     {
         $user = auth()->user();
-        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+        $userdata = DB::table('users')
+            ->select('name', 'id')
+            ->where('id', $user->id)->get();
 
         $name = DB::table('transcations')->select('id_transaction', 'fiat_wallet')
         ->where('user_name', $userdata[0]->name)
@@ -260,7 +262,25 @@ class ControllerLink extends Controller
             ->where('id_noincome', $id_income)
             ->update(['name_noincome'=>$name_update, 'wallet_noincome'=>$money_update]);
 
-            return redirect()->route('edit_no_income');
+        return redirect()->route('edit_no_income');
+    }
+
+    //Delete Page to no_income Submit
+    public function deleteAcNoIncome(Request $request){
+        $user = auth()->user();
+        $userdata = DB::table('users')
+            ->select('name', 'id')
+            ->where('id', $user->id)
+            ->get();
+
+        $id_income = $request->input('id');
+
+        $data_delete_income = DB::table('no_income')
+            ->select('name_noincome', 'wallet_noincome')
+            ->where('id_noincome', $id_income)
+            ->get();
+
+        return view('delete_ac_no_income', compact('id_income', 'data_delete_income'));
     }
 
     //=============================================================================================
@@ -342,6 +362,25 @@ class ControllerLink extends Controller
 
             return redirect()->route('edit_no_expense');
     }
+
+    //Delete Page to no_expense Submit
+    public function deleteAcNoExpense(Request $request){
+        $user = auth()->user();
+        $userdata = DB::table('users')
+            ->select('name', 'id')
+            ->where('id', $user->id)
+            ->get();
+
+        $id_expense = $request->input('id');
+
+        $data_delete_expense = DB::table('no_expense')
+        ->select('name_noexpense', 'wallet_noexpense')
+        ->where('id_noexpense', $id_expense)
+        ->get();
+
+        return view('delete_ac_no_expense', compact('id_expense', 'data_delete_expense'));
+    }
+    
     
     
 /**********************************************************************************************************/

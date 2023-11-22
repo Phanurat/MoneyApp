@@ -19,7 +19,7 @@
             </div>
             <a class="" href="#id">ได้รับ</a>
             <a class="" href="{{route('edit_mn_no_income', ['id'=>$noincome->id_noincome])}}">แก้ไข</a>
-            <a class="" href="#">ลบ</a>
+            <a class="" href="{{route('delete_ac_no_income', ['id'=>$noincome->id_noincome])}}">ลบ</a>
         </div>
     @endforeach
     

@@ -76,6 +76,8 @@ Route::get('/add-no-income', [ControllerLink::class, 'addNoIncome'])->name('add_
 Route::get('/add-no-expense', [ControllerLink::class, 'addNoExpense'])->name('add_no_expense');
 Route::get('/edit-mn-no-income', [ControllerLink::class, 'editMnNoIncome'])->name('edit_mn_no_income');
 Route::get('/edit-mn-no-expense', [ControllerLink::class, 'editMnNoExpense'])->name('edit_mn_no_expense');
+Route::get('/delete-ac-no-income', [ControllerLink::class, 'deleteAcNoIncome'])->name('delete_ac_no_income');
+Route::get('/delete-ac-no-expense', [ControllerLink::class, 'deleteAcNoExpense'])->name('delete_ac_no_expense');
 
 
 //save Form
