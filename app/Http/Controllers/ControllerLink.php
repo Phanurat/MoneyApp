@@ -462,7 +462,7 @@ class ControllerLink extends Controller
             'type'=>$type,
             'created_at'=>$time_at,
             'user_name'=>$userdata[0]->name,
-            'fiat_wallet'=>$name[0]->fiat_wallet,
+            //'fiat_wallet'=>$name[0]->fiat_wallet,
         ]);
 
         return redirect()->route('dashboard');
