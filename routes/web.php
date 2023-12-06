@@ -65,7 +65,7 @@ Route::middleware([
         ->where('type', 'expense')
         ->sum('value');
 
-        $total_fiat_expense = $fiatwallet - $total_sum_expense;
+        $total_fiat_expense = $fiatwallet;
 
         return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 'noexpense_sum', 'userdata', 'total_fiat_expense'));
 
