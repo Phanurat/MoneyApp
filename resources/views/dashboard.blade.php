@@ -117,7 +117,17 @@
         <div class="input-group">
             <input id="input4" class="form-control" type="text" placeholder="คงเหลือ" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
-                <span class="input-group-text">1,000 บาท</span>
+                <span class="input-group-text">
+                    @if(isset($total_fiat_expense) && isset($total_fiat_expense))
+                        <span class="input-group-text">
+                            {{ number_format($total_fiat_expense) }} บาท
+                        </span>
+                    @else
+                        <span class="input-group-text">
+                            0 บาท
+                        </span>
+                    @endif
+                </span>
             </div>
         </div>
     </div>

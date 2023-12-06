@@ -35,7 +35,7 @@ Route::middleware([
         ->orderBy('id_transaction', 'desc')
         ->limit(1)
         ->get();
-
+        
         //Show Bank Money To Dashboard
         $bankMoney = DB::table('bank')
         ->select('wallet_bank')
@@ -57,7 +57,17 @@ Route::middleware([
         ->where('user_name', $userdata[0]->name)
         ->sum('wallet_noexpense');
 
-        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 'noexpense_sum', 'userdata'));
+        //Show Total fiat - total expense
+        $fiatwallet = $userdata[0]->fiat_wallet;
+        
+        $total_sum_expense = DB::table('transcations')
+        ->where('user_name', $userdata[0]->name)
+        ->where('type', 'expense')
+        ->sum('value');
+
+        $total_fiat_expense = $fiatwallet - $total_sum_expense;
+
+        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 'noexpense_sum', 'userdata', 'total_fiat_expense'));
 
         //return view('dashboard');
     })->name('dashboard');
