@@ -38,17 +38,17 @@ class ControllerLink extends Controller
     {
         $user = auth()->user();
         $userdata = DB::table('users')
-            ->select('name', 'id')
+            ->select('name', 'id', 'fiat_wallet')
             ->where('id', $user->id)->get();
 
-        $name = DB::table('transcations')->select('id_transaction', 'fiat_wallet')
+        /*$name = DB::table('transcations')->select('id_transaction', 'fiat_wallet')
         ->where('user_name', $userdata[0]->name)
         ->whereNotNull('fiat_wallet')
         ->orderBy('id_transaction', 'desc')
         ->limit(1)
-        ->get();
+        ->get();*/
 
-        return view('edit_fiat', compact('name'));
+        return view('edit_fiat', compact('userdata'));
     }
 
 /**********************************************************************************************************/
@@ -396,12 +396,16 @@ class ControllerLink extends Controller
         //fiat update input from form edit_fiat
         $fiat_input = $request->input('fiat_update');
 
-        $update_fiat = DB::table('transcations')
+        /*$update_fiat = DB::table('transcations')
             ->where('user_name', $userdata[0]->name)
             ->latest('id_transaction')
             ->limit(1)
-            ->update(['fiat_wallet' => $fiat_input]);
+            ->update(['fiat_wallet' => $fiat_input]);*/
 
+        $update_fiat = DB::table('users')
+            ->where('name', $userdata[0]->name)
+            ->update(['fiat_wallet'=> $fiat_input]);
+            
         return redirect()->route('edit_fiat');
     }
 

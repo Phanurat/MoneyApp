@@ -34,9 +34,9 @@
             <input id="input4" class="form-control" type="text" placeholder="เงินสด" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
                 <span class="input-group-text">
-                    @if (isset($name[0]) && isset($name[0]->fiat_wallet))
+                    @if (isset($userdata[0]) && isset($userdata[0]->fiat_wallet))
                         <span class="input-group-text">
-                            {{ number_format($name[0]->fiat_wallet) }} บาท
+                            {{ number_format($userdata[0]->fiat_wallet) }} บาท
                         </span>
                     @else
                         <span class="input-group-text">

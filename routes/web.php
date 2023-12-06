@@ -27,7 +27,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         $user = auth()->user();
-        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+        $userdata = DB::table('users')->select('name', 'id', 'fiat_wallet')->where('id', $user->id)->get();
 
         $name = DB::table('transcations')->select('id_transaction', 'fiat_wallet')
         ->where('user_name', $userdata[0]->name)
@@ -57,7 +57,7 @@ Route::middleware([
         ->where('user_name', $userdata[0]->name)
         ->sum('wallet_noexpense');
 
-        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 'noexpense_sum'));
+        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 'noexpense_sum', 'userdata'));
 
         //return view('dashboard');
     })->name('dashboard');

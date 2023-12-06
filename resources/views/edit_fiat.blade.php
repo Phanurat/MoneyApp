@@ -12,8 +12,8 @@
             <div class="mb-3">
                 <label for="valueinput" class="form-label">เงินสด</label> <br>
                 <label for="valueinput" class="form-label">จำนวนเงิน : 
-                    @if (isset($name[0]) && isset($name[0]->fiat_wallet)) 
-                        {{ $name[0]->fiat_wallet }}
+                    @if (isset($userdata[0]) && isset($userdata[0]->fiat_wallet)) 
+                        {{ $userdata[0]->fiat_wallet }}
                     @else
                         0
                         บาท</label>
