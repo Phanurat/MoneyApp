@@ -18,7 +18,8 @@ class ControllerLink extends Controller
 /**********************************************************************************************************/
 
 {
-    //
+     //
+     //
     public function addTranscation()
     {
         $user = auth()->user();
@@ -437,40 +438,53 @@ class ControllerLink extends Controller
 /**********************************************************************************************************/
 /**********************************************************************************************************/
 
-    //insert into Transaction
     public function saveTransaction(Request $request)
     {
         $user = auth()->user();
-        $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
+        $userdata = DB::table('users')
+            ->select('name', 'id', 'fiat_wallet')
+            ->where('id', $user->id)
+            ->first();
 
         $name_trans = $request->input('name_trans');
         $value_trans = $request->input('value_trans');
         $type = $request->input('select_type');
 
+        //update fiat to users table
+        if ($type === 'income') { 
+            $add_income = $userdata->fiat_wallet + $value_trans;
+
+            //update fiat + income
+            DB::table('users')
+                ->where('name', $userdata->name)
+                ->update(['fiat_wallet' => $add_income]);
+        
+        } elseif ($type === 'expense') {
+            $subtract_expense = $userdata->fiat_wallet - $value_trans;
+
+            //update fiat - expense
+            DB::table('users')
+                ->where('name', $userdata->name)
+                ->update(['fiat_wallet' => $subtract_expense]);
+        }
+        
         //Set Time Zone Asia
         Carbon::setLocale('th_TH');
         Carbon::setToStringFormat('l jS F Y h:i:s A');
         date_default_timezone_set('Asia/Bangkok');
         $time_at = Carbon::now('Asia/Bangkok');
 
-        $name = DB::table('transcations')->select('id_transaction', 'fiat_wallet')
-        ->where('user_name', $userdata[0]->name)
-        ->whereNotNull('fiat_wallet')
-        ->orderBy('id_transaction', 'desc')
-        ->limit(1)
-        ->get();
-
         DB::table('transcations')->insert([
             'name_transaction'=>$name_trans,
             'value'=>$value_trans,
             'type'=>$type,
             'created_at'=>$time_at,
-            'user_name'=>$userdata[0]->name,
-            //'fiat_wallet'=>$name[0]->fiat_wallet,
+            'user_name'=>$userdata->name,
         ]);
 
         return redirect()->route('dashboard');
     }
+
 
 }
 
