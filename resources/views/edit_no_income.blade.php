@@ -21,7 +21,7 @@
                 <h4><b>คงเหลือ : {{ $noincome->wallet_noincome }}</b></h4>
 
                 <div class="mb-3">
-                    <a class="btn btn-success" href="#id">ได้รับ</a>
+                    <a class="btn btn-success" href="{{route('get_mn_no_income', ['id'=>$noincome->id_noincome])}}">ได้รับ</a>
                     <a class="btn btn-primary" href="{{route('edit_mn_no_income', ['id'=>$noincome->id_noincome])}}">แก้ไข</a>
                     <a class="btn btn-danger" href="{{route('delete_ac_no_income', ['id'=>$noincome->id_noincome])}}">ลบ</a>
                 </div>
