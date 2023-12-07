@@ -115,7 +115,7 @@
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
         <div class="input-group">
-            <input id="input4" class="form-control" type="text" placeholder="คงเหลือรวม (เงินสด + ธนาคาร + ค้างรับ)" aria-label="Disabled input example" disabled>
+            <input id="input4" class="form-control" type="text" placeholder="คงเหลือรวม (สด+ธนาคาร)" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
                 <span class="input-group-text">
                     @if(isset($total_money_income) && isset($total_money_income))
@@ -153,8 +153,30 @@
     </div>
 
     <div style="margin-top: 10px;"></div>
-    <a href="{{ route('add_transcation') }}" class="add-report-button">เพิ่มรายการ</a>
+    
+    <div class="card mx-auto" style="width: 30%;">
+        <a href="{{ route('add_transcation') }}" class="add-report-button">เพิ่มรายการ</a>
+    </div>
 
+    <div style="margin-top: 10px;"></div>
+    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
+        <div class="input-group">
+            <input id="input4" class="form-control" type="text" placeholder="สรุปรายงาน" aria-label="Disabled input example" disabled>
+            <div class="input-group-append">
+                <span class="input-group-text"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 500px;"></div>
+    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
+        <div class="input-group">
+            <input id="input4" class="form-control" type="text" aria-label="Disabled input example" disabled>
+            <div class="input-group-append">
+                <span class="input-group-text"></span>
+            </div>
+        </div>
+    </div>
     
 
 </x-app-layout>
