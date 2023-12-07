@@ -162,12 +162,9 @@
     <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
         <div class="input-group">
             <input id="input4" class="form-control" type="text" placeholder="สรุปรายงาน" aria-label="Disabled input example" disabled>
-            <div class="input-group-append">
-                <span class="input-group-text"></span>
-            </div>
         </div>
     </div>
-    
+
     <div style="margin-top: 500px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
         <div class="input-group">
