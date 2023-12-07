@@ -115,6 +115,26 @@
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
         <div class="input-group">
+            <input id="input4" class="form-control" type="text" placeholder="คงเหลือรวม (เงินสด + ธนาคาร + ค้างรับ)" aria-label="Disabled input example" disabled>
+            <div class="input-group-append">
+                <span class="input-group-text">
+                    @if(isset($total_money_income) && isset($total_money_income))
+                        <span class="input-group-text">
+                            {{ number_format($total_money_income) }} บาท
+                        </span>
+                    @else
+                        <span class="input-group-text">
+                            0 บาท
+                        </span>
+                    @endif
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 10px;"></div>
+    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
+        <div class="input-group">
             <input id="input4" class="form-control" type="text" placeholder="คงเหลือ" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
                 <span class="input-group-text">

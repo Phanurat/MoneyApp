@@ -57,17 +57,20 @@ Route::middleware([
         ->where('user_name', $userdata[0]->name)
         ->sum('wallet_noexpense');
 
-        //Show Total fiat - total expense
+        //Show Total fiat - total noexpense
         $fiatwallet = $userdata[0]->fiat_wallet;
+
+        //Show Total fiat + total Bank + noincome
+        $total_money_income = ($fiatwallet + $all_bank_sum + $noexpense_sum);
         
         $total_sum_expense = DB::table('transcations')
         ->where('user_name', $userdata[0]->name)
         ->where('type', 'expense')
         ->sum('value');
 
-        $total_fiat_expense = $fiatwallet;
+        $total_fiat_expense = ($fiatwallet - $noexpense_sum);
 
-        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 'noexpense_sum', 'userdata', 'total_fiat_expense'));
+        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 'noexpense_sum', 'userdata', 'total_fiat_expense', 'total_money_income'));
 
         //return view('dashboard');
     })->name('dashboard');
