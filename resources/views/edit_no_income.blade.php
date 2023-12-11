@@ -9,7 +9,12 @@
         <div style="margin-top: 10px;"></div>
           <h4><b>ค้างรับทั้งหมด : {{ $noincome_count }} รายการ
             <a href="{{route('add_no_income')}}" class="btn btn-warning" style="color: rgb(7, 41, 70); font-size:12px;"><button>เพิ่มค้างรับ</button></a></b></h4>
-          <h4><b>เงินทั้งหมด : {{number_format($noincome_sum)}} บาท </b></h4>
+          <h4><b>เงินทั้งหมด : 
+            @if(isset($noincome_sum, $noincome_get_sum) && isset($noincome_sum, $noincome_get_sum))
+                {{ number_format($noincome_sum - $noincome_get_sum) }} บาท </b></h4>
+            @else
+                0 บาท
+            @endif
     </div>
     @foreach ($all_noincome as $noincome)
         @php

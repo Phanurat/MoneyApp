@@ -74,7 +74,10 @@ Route::middleware([
 
         $total_fiat_expense = ($fiatwallet - $noexpense_sum);
 
-        return view('dashboard', compact('name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 'noexpense_sum', 'userdata', 'total_fiat_expense', 'total_money_income', 'noincome_get_sum'));
+        return view('dashboard', compact(
+            'name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 
+            'noexpense_sum', 'userdata', 'total_fiat_expense', 'total_money_income', 
+            'noincome_get_sum'));
 
         //return view('dashboard');
     })->name('dashboard');
