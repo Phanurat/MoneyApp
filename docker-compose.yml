@@ -1,0 +1,29 @@
+version: '3'
+services:
+  webserver:
+    image: httpd:latest
+    container_name: my-apache-container
+    ports:
+      - "8080:80"
+    volumes:
+      - ./html:/usr/local/apache2/htdocs/
+
+  db:
+    image: mysql:8.1
+    container_name: my-mysql-container
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1111
+      MYSQL_DATABASE: MyMoneyApp
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1111
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: my-phpmyadmin-container
+    ports:
+      - "8181:80" # ที่เพิ่มเพื่อให้ PHPMyAdmin ใช้พอร์ต 8181 บนเครื่องโฮสต์
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: 1111
