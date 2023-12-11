@@ -76,9 +76,9 @@
             <input id="input4" class="form-control" type="text" placeholder="ค้างรับ" aria-label="Disabled input example" disabled>
             <div class="input-group-append">
                 <span class="input-group-text">
-                    @if(isset($noincome_sum) && isset($noincome_sum))
+                    @if(isset($noincome_sum, $noincome_get_sum) && isset($noincome_sum, $noincome_get_sum))
                         <span class="input-group-text">
-                            {{ number_format($noincome_sum) }} บาท
+                            {{ number_format($noincome_sum - $noincome_get_sum) }} บาท
                         </span>
                     @else
                         <span class="input-group-text">
