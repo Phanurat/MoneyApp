@@ -204,7 +204,7 @@ class ControllerLink extends Controller
         ->count('id_noincome');
 
         $all_noincome = DB::table('no_income')
-        ->select('id_noincome', 'name_noincome', 'wallet_noincome')
+        ->select('id_noincome', 'name_noincome', 'wallet_noincome', 'wallet_get')
         ->where('user_name', $userdata[0]->name)
         ->get();
 

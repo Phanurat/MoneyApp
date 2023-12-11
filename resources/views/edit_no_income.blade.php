@@ -17,8 +17,16 @@
             <div style="margin-top: 10px;"></div>
             <div class="container">
                 <h4 ><b>ชื่อ : {{ $noincome->name_noincome }} </b></h4>
-                <h4><b>จำนวนเงิน : {{ $noincome->wallet_noincome }} / ได้รับแล้ว : </b></h4>
-                <h4><b>คงเหลือ : {{ $noincome->wallet_noincome }}</b></h4>
+
+                <h4><b>จำนวนเงิน : {{ $noincome->wallet_noincome }} / ได้รับแล้ว : 
+                    @if(isset($noincome->wallet_get) && isset($noincome->wallet_get))
+                        {{$noincome->wallet_get}} 
+                    @else
+                        0
+                    @endif
+                </b></h4>
+
+                <h4><b>คงเหลือ : {{ $noincome->wallet_noincome -  $noincome->wallet_get }}</b></h4>
 
                 <div class="mb-3">
                     <a class="btn btn-success" href="{{route('get_mn_no_income', ['id'=>$noincome->id_noincome])}}">ได้รับ</a>
