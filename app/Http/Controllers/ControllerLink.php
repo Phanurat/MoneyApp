@@ -212,7 +212,14 @@ class ControllerLink extends Controller
         ->where('user_name', $userdata[0]->name)
         ->get();
 
-        return view('edit_no_income', compact('noincome_sum', 'all_noincome', 'noincome_count', 'noincome_get_sum'));
+        $count_not_zero = DB::table('no_income')
+        ->whereRaw('(wallet_get - wallet_noincome) != 0')
+        ->where('user_name', $userdata[0]->name)
+        ->count('id_noincome');
+
+        $value_count_not_zero = $count_not_zero;
+
+        return view('edit_no_income', compact('noincome_sum', 'all_noincome', 'noincome_count', 'noincome_get_sum', 'value_count_not_zero'));
         
     }
 
