@@ -239,6 +239,7 @@ class ControllerLink extends Controller
                 'name_noincome'=>$name_no_income,
                 'user_name'=>$userdata[0]->name,
                 'wallet_noincome'=>$wallet_no_income,
+                'wallet_get'=>0,
             ]);
 
         return redirect()->route('edit_no_income');
