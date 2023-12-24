@@ -278,7 +278,7 @@ class ControllerLink extends Controller
         return redirect()->route('edit_no_income');
     }
 
-    //Get Money Nouincome
+    //Get Money Noincome
     public function getMnNoIncome(Request $request)
     {
         $user = auth()->user();
@@ -290,6 +290,21 @@ class ControllerLink extends Controller
         ->get();
         
         return view('show_add_get_income', compact('id_income', 'data_no_income'));
+        
+    }
+
+    //Get Money Noexpense
+    public function getMnNoExpense(Request $request)
+    {
+        $user = auth()->user();
+        $id_expense = $request->input('id');
+
+        $data_no_expense = DB::table('no_expense')
+        ->select('name_noexpense', 'wallet_noexpense')
+        ->where('id_noexpense',$id_expense)
+        ->get();
+        
+        return view('show_add_get_expense', compact('id_expense', 'data_no_expense'));
         
     }
 
@@ -312,7 +327,27 @@ class ControllerLink extends Controller
 
         return redirect()->route('edit_no_income');
 
-    }    
+    }
+    //Get Money Expense
+    public function getNoExpense(Request $request)
+    {
+        $id_expense = $request->input('id_expense');
+        $name_noexpense = $request->input('name_noexpense');
+        $money_noexpense = $request->input('money_noexpense');
+
+        $data_noexpense = DB::table('no_expense')
+            ->select('wallet_noexpense')
+            ->where('id_noexpense', $id_expense)
+            ->where('name_noexpense', $name_noexpense)
+            ->get();
+        
+        DB::table('no_expense')
+            ->where('id_noexpense', $id_expense)
+            ->update(['wallet_back'=>$money_noexpense]);
+
+        return redirect()->route('edit_no_expense');
+
+    }     
 
     //Delete Page to no_income Submit
     public function deleteAcNoIncome(Request $request){

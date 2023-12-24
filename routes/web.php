@@ -85,6 +85,7 @@ Route::middleware([
 
 //Link path files
 Route::get('/get_mn_no_income', [ControllerLink::class, 'getMnNoIncome'])->name('get_mn_no_income');
+Route::get('/get_mn_no_expense', [ControllerLink::class, 'getMnNoExpense'])->name('get_mn_no_expense');
 Route::get('/add-transcation', [ControllerLink::class, 'addTranscation'])->name('add_transcation');
 Route::get('/edit-fiat', [ControllerLink::class, 'editFiat'])->name('edit_fiat');
 Route::get('/edit-bank', [ControllerLink::class, 'editBank'])->name('edit_bank');
@@ -112,6 +113,7 @@ Route::post('/add-ac-no-expense', [ControllerLink::class, 'addAcNoExpense'])->na
 Route::post('/update-ac-no-income', [ControllerLink::class, 'updateAcNoIncome'])->name('update_ac_no_income');
 Route::post('/update-ac-no-expense', [ControllerLink::class, 'updateAcNoExpense'])->name('update_ac_no_expense');
 Route::post('/get-no-income', [ControllerLink::class, 'getNoIncome'])->name('get_no_income');
+Route::post('/get-no-expense', [ControllerLink::class, 'getNoExpense'])->name('get_no_expense');
 Route::post('/submit-delete-no-income', [ControllerLink::class, 'submitDelectNoIncome'])->name('submit_delete_no_income');
 
 
