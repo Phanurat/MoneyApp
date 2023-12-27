@@ -38,7 +38,7 @@
                     <div class="mb-3">
                         <a class="btn btn-success" href="{{ route('get_mn_no_expense', ['id'=>$noexpense->id_noexpense]) }}">ชำระ</a>
                         <a class="btn btn-primary" href="{{ route('edit_mn_no_expense', ['id'=>$noexpense->id_noexpense]) }}">แก้ไข</a>
-                        <a class="btn btn-danger" href="{{ route('delete_ac_no_expense  ', ['id'=>$noiexpense->id_noexpense]) }}">ลบ</a>
+                        <a class="btn btn-danger" href="{{ route('delete_ac_no_expense  ', ['id'=>$noexpense->id_noexpense]) }}">ลบ</a>
                     </div>
                 </div>             
             </div>
