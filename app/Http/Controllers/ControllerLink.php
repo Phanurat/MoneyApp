@@ -397,17 +397,21 @@ class ControllerLink extends Controller
     public function editNoExpense(){
         $user = auth()->user();
         $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
-
+        
         $noexpense_sum = DB::table('no_expense')
         ->where('user_name', $userdata[0]->name)
         ->sum('wallet_noexpense');
+
+        $noexpense_get_sum = DB::table('no_expense')
+        ->where('user_name', $userdata[0]->name)
+        ->sum('wallet_back');
 
         $noexpense_count = DB::table('no_expense')
         ->where('user_name', $userdata[0]->name)
         ->count('id_noexpense');
 
         $all_noexpense = DB::table('no_expense')
-        ->select('id_noexpense', 'name_noexpense', 'wallet_noexpense')
+        ->select('id_noexpense', 'name_noexpense', 'wallet_noexpense', 'wallet_back')
         ->where('user_name', $userdata[0]->name)
         ->get();
 
@@ -418,7 +422,8 @@ class ControllerLink extends Controller
 
         $value_count_not_zero = $count_not_zero;
 
-        return view('edit_no_expense', compact('noexpense_sum', 'noexpense_count', 'all_noexpense', 'value_count_not_zero'));
+        return view('edit_no_expense', compact('noexpense_sum', 'all_noexpense', 'noexpense_count', 'noexpense_get_sum', 'value_count_not_zero'));
+        
     }
 
     //Add-No-Expense
