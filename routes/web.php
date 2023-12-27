@@ -114,8 +114,8 @@ Route::post('/update-ac-no-income', [ControllerLink::class, 'updateAcNoIncome'])
 Route::post('/update-ac-no-expense', [ControllerLink::class, 'updateAcNoExpense'])->name('update_ac_no_expense');
 Route::post('/get-no-income', [ControllerLink::class, 'getNoIncome'])->name('get_no_income');
 Route::post('/get-no-expense', [ControllerLink::class, 'getNoExpense'])->name('get_no_expense');
-Route::post('/submit-delete-no-income', [ControllerLink::class, 'submitDelectNoIncome'])->name('submit_delete_no_income');
-
+Route::post('/submit-delete-no-income', [ControllerLink::class, 'submitDeleteNoIncome'])->name('submit_delete_no_income');
+Route::post('/submit-delete-no-expense', [ControllerLink::class, 'submitDeleteNoExpense'])->name('submit_delete_no_expense');
 
 
 ?>

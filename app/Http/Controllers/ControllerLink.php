@@ -583,7 +583,7 @@ class ControllerLink extends Controller
 /**********************************************************************************************************/
 
     //Submit Delect Accounts No income
-    public function submitDelectNoIncome(Request $request){
+    public function submitDeleteNoIncome(Request $request){
         $id_income = $request->input('id_income');
     
         DB::table('no_income')
@@ -591,7 +591,18 @@ class ControllerLink extends Controller
             ->delete();
     
         return redirect()->route('edit_no_income');
-    }    
+    }
+
+    //Submit Delete Accounts No Expense
+    public function submitDeleteNoExpense(Request $request){
+        $id_expense = $request->input('id_expense');
+
+        DB::table('no_expense')
+            ->where('id_noexpense', $id_expense)
+            ->delete();
+
+        return redirect()->route('edit_no_expense');
+    }
 }
 
 /**********************************************************************************************************/
