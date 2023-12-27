@@ -252,6 +252,28 @@ class ControllerLink extends Controller
         return redirect()->route('edit_no_income');
     }
 
+    //Add Account No-Expense
+    public function addAcNoExpense(Request $request){
+        $user = auth()->user();
+        $userdata = DB::table('users')
+        ->select('name', 'id')
+        ->where('id', $user->id)
+        ->get();
+
+        $name_no_expense = $request->input('name_no_expense');
+        $wallet_no_expense = $request->input('wallet_no_expense');
+
+        DB::table('no_expense')
+            ->insert([
+                'name_noexpense'=>$name_no_expense,
+                'user_name'=>$userdata[0]->name,
+                'wallet_noexpense'=>$wallet_no_expense,
+                'wallet_back'=>0,
+            ]);
+
+        return redirect()->route('edit_no_expense');
+    }
+
     //Manage Accoute No-Income
     public function editMnNoIncome(Request $request){
         $user = auth()->user();
@@ -375,21 +397,33 @@ class ControllerLink extends Controller
     public function editNoExpense(){
         $user = auth()->user();
         $userdata = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
-
+        
         $noexpense_sum = DB::table('no_expense')
         ->where('user_name', $userdata[0]->name)
         ->sum('wallet_noexpense');
+
+        $noexpense_get_sum = DB::table('no_expense')
+        ->where('user_name', $userdata[0]->name)
+        ->sum('wallet_back');
 
         $noexpense_count = DB::table('no_expense')
         ->where('user_name', $userdata[0]->name)
         ->count('id_noexpense');
 
         $all_noexpense = DB::table('no_expense')
-        ->select('id_noexpense', 'name_noexpense', 'wallet_noexpense')
+        ->select('id_noexpense', 'name_noexpense', 'wallet_noexpense', 'wallet_back')
         ->where('user_name', $userdata[0]->name)
         ->get();
 
-        return view('edit_no_expense', compact('noexpense_sum', 'noexpense_count', 'all_noexpense'));
+        $count_not_zero = DB::table('no_expense')
+        ->whereRaw('(wallet_noexpense - wallet_back) != 0')
+        ->where('user_name', $userdata[0]->name)
+        ->count('id_noexpense');
+
+        $value_count_not_zero = $count_not_zero;
+
+        return view('edit_no_expense', compact('noexpense_sum', 'all_noexpense', 'noexpense_count', 'noexpense_get_sum', 'value_count_not_zero'));
+        
     }
 
     //Add-No-Expense
@@ -397,27 +431,6 @@ class ControllerLink extends Controller
         $user = auth()->user();
 
         return view('add_no_expense');
-    }
-
-    //Add Account No-Income
-    public function addAcNoExpense(Request $request){
-        $user = auth()->user();
-        $userdata = DB::table('users')
-        ->select('name', 'id')
-        ->where('id', $user->id)
-        ->get();
-        
-        $name_no_expense = $request->input('name_no_expense');
-        $wallet_no_expense = $request->input('wallet_no_expense');
-
-        DB::table('no_expense')
-            ->insert([
-                'name_noexpense'=>$name_no_expense,
-                'user_name'=>$userdata[0]->name,
-                'wallet_noexpense'=>$wallet_no_expense,
-            ]);
-
-        return redirect()->route('edit_no_expense');
     }
 
     //editMnNoExpense
@@ -575,7 +588,7 @@ class ControllerLink extends Controller
 /**********************************************************************************************************/
 
     //Submit Delect Accounts No income
-    public function submitDelectNoIncome(Request $request){
+    public function submitDeleteNoIncome(Request $request){
         $id_income = $request->input('id_income');
     
         DB::table('no_income')
@@ -583,7 +596,18 @@ class ControllerLink extends Controller
             ->delete();
     
         return redirect()->route('edit_no_income');
-    }    
+    }
+
+    //Submit Delete Accounts No Expense
+    public function submitDeleteNoExpense(Request $request){
+        $id_expense = $request->input('id_expense');
+
+        DB::table('no_expense')
+            ->where('id_noexpense', $id_expense)
+            ->delete();
+
+        return redirect()->route('edit_no_expense');
+    }
 }
 
 /**********************************************************************************************************/

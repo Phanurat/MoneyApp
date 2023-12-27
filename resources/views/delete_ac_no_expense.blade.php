@@ -10,7 +10,7 @@
           
         <h4><b>จำนวนเงิน : {{number_format($data_delete_expense[0]->wallet_noexpense)}}
           บาท</b></h4>
-          <form method="post" action="#">
+          <form method="post" action="{{ route('submit_delete_no_expense') }}">
             @csrf
             <div class="mb-3">
                 <input type="hidden" class="form-control" name="id_expense" value="{{ $id_expense }}">
