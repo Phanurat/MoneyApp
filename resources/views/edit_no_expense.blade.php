@@ -6,7 +6,7 @@
     </x-slot>
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
-        <h4><b>รายการที่เหลือ:  ทั้งหมด: {{ $noexpense_count }} รายการ
+        <h4><b>รายการที่เหลือ: {{ $value_count_not_zero }} ทั้งหมด: {{ $noexpense_count }} รายการ
             <a href="{{route('add_no_expense')}}" class="btn btn-warning" style="color: rgb(7, 41, 70); font-size:12px;">
                 <button>เพิ่มค้างจ่าย</button>
             </a></b></h4>

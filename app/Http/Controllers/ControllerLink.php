@@ -267,7 +267,7 @@ class ControllerLink extends Controller
             ->insert([
                 'name_noexpense'=>$name_no_expense,
                 'user_name'=>$userdata[0]->name,
-                'wallet_noincome'=>$wallet_no_expense,
+                'wallet_noexpense'=>$wallet_no_expense,
                 'wallet_back'=>0,
             ]);
 
@@ -411,7 +411,14 @@ class ControllerLink extends Controller
         ->where('user_name', $userdata[0]->name)
         ->get();
 
-        return view('edit_no_expense', compact('noexpense_sum', 'noexpense_count', 'all_noexpense'));
+        $count_not_zero = DB::table('no_expense')
+        ->whereRaw('(wallet_noexpense - wallet_back) != 0')
+        ->where('user_name', $userdata[0]->name)
+        ->count('id_noexpense');
+
+        $value_count_not_zero = $count_not_zero;
+
+        return view('edit_no_expense', compact('noexpense_sum', 'noexpense_count', 'all_noexpense', 'value_count_not_zero'));
     }
 
     //Add-No-Expense
