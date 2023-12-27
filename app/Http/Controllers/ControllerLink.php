@@ -252,6 +252,28 @@ class ControllerLink extends Controller
         return redirect()->route('edit_no_income');
     }
 
+    //Add Account No-Expense
+    public function addAcNoExpense(Request $request){
+        $user = auth()->user();
+        $userdata = DB::table('users')
+        ->select('name', 'id')
+        ->where('id', $user->id)
+        ->get();
+
+        $name_no_expense = $request->input('name_no_expense');
+        $wallet_no_expense = $request->input('wallet_no_expense');
+
+        DB::table('no_expense')
+            ->insert([
+                'name_noexpense'=>$name_no_expense,
+                'user_name'=>$userdata[0]->name,
+                'wallet_noincome'=>$wallet_no_expense,
+                'wallet_back'=>0,
+            ]);
+
+        return redirect()->route('edit_no_expense');
+    }
+
     //Manage Accoute No-Income
     public function editMnNoIncome(Request $request){
         $user = auth()->user();
@@ -397,27 +419,6 @@ class ControllerLink extends Controller
         $user = auth()->user();
 
         return view('add_no_expense');
-    }
-
-    //Add Account No-Income
-    public function addAcNoExpense(Request $request){
-        $user = auth()->user();
-        $userdata = DB::table('users')
-        ->select('name', 'id')
-        ->where('id', $user->id)
-        ->get();
-        
-        $name_no_expense = $request->input('name_no_expense');
-        $wallet_no_expense = $request->input('wallet_no_expense');
-
-        DB::table('no_expense')
-            ->insert([
-                'name_noexpense'=>$name_no_expense,
-                'user_name'=>$userdata[0]->name,
-                'wallet_noexpense'=>$wallet_no_expense,
-            ]);
-
-        return redirect()->route('edit_no_expense');
     }
 
     //editMnNoExpense
