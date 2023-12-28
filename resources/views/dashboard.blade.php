@@ -99,7 +99,7 @@
                 <span class="input-group-text">
                     @if(isset($noexpense_sum, $noexpense_get_sum) && isset($noexpense_sum, $noexpense_get_sum))
                         <span class="input-group-text">
-                            {{ number_format($noexpense_get_sum - $noexpense_sum) }} บาท
+                            {{ number_format($noexpense_sum - $noexpense_get_sum) }} บาท
                         </span>
                     @else
                         <span class="input-group-text">

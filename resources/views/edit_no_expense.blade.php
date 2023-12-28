@@ -19,7 +19,7 @@
     </div>
     @foreach ($all_noexpense as $noexpense)
         @php
-            $remaining_balance = $noexpense->wallet_back - $noexpense->wallet_noexpense ;
+            $remaining_balance =  $noexpense->wallet_noexpense - $noexpense->wallet_back;
         @endphp
         @if($remaining_balance !== 0)
             <div style="margin-top: 10px;"></div>
