@@ -15,7 +15,8 @@
             <div class="mb-3">
                 <input type="hidden" class="form-control" name="id_expense" value="{{ $id_expense }}">
 
-                <button type="submit" class="btn btn-danger">ลบ</button>
+                <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px;">ลบ</button>
+
             </div>
                
         </form>

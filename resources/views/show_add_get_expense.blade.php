@@ -22,7 +22,7 @@
                 <input type="number" class="form-control" name="money_noexpense" value="money_noexpense" placeholder="ชำระ">
                 <div style="margin-top: 10px;"></div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+                    <button type="submit" style="background-color: #0B5ED7; color: white; border: none; padding: 8px 16px; border-radius: 4px;">บันทึกรายการ</button>
                 </div>
             </div>
         </form>
