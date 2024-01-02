@@ -20,6 +20,23 @@
     .add-report-button:hover {
         background-color: #0056a0;
     }
+
+    .green-frame {
+        border: 2px solid #28a745; /* สีเขียว */
+        padding: 10px; /* เพิ่มช่องว่างรอบข้อความ */
+        margin-bottom: 20px; /* ขยับลงด้านล่างเพื่อเว้นระยะห่างระหว่างกรอบ */
+        background-color: #d4edda;
+        border-radius: 8px;
+    }
+
+    /* สร้างกรอบสีแดง */
+    .red-frame {
+        border: 2px solid #dc3545; /* สีแดง */
+        padding: 10px; /* เพิ่มช่องว่างรอบข้อความ */
+        background-color: #f8d7da;
+        border-radius: 8px;
+
+    }
 </style>
 
 <x-app-layout>
@@ -163,6 +180,26 @@
         <div class="input-group">
             <input id="input4" class="form-control" type="text" placeholder="สรุปรายงาน" aria-label="Disabled input example" disabled>
         </div>
+        <div style="margin-top: 10px;"></div>
+        <div class="content-group">
+            <div>วันนี้</div>
+            <div>รายการ</div>
+            <div class="green-frame">
+                <div>รายรับ
+                    <h1>เฉลี่ย</h1>
+                    <h1>มากที่สุด</h1>
+                    <h1>น้อยที่สุด</h1>
+                </div>
+            </div>
+            <div class="red-frame">
+                <div>รายจ่าย
+                    <h1>เฉลี่ย</h1>
+                    <h1>มากที่สุด</h1>
+                    <h1>น้อยที่สุด</h1>
+                </div>
+            </div>            
+        </div>
+        <div style="margin-top: 10px;"></div>
     </div>
 
     <div style="margin-top: 500px;"></div>
@@ -175,5 +212,4 @@
         </div>
     </div>
     
-
 </x-app-layout>
