@@ -208,9 +208,9 @@
             <div class="green-frame">
                 <div>
                     <h1 class="green-head">รายรับ</h1>
-                    <h1>เฉลี่ย</h1>
-                    <h1>มากที่สุด</h1>
-                    <h1>น้อยที่สุด</h1>
+                    <h1>เฉลี่ย {{ number_format($average_value_income, 2) }}</h1>
+                    <h1>มากที่สุด {{$desc_value_income[0]->value}} บาท</h1>
+                    <h1>น้อยที่สุด {{$asc_value_income[0]->value}} บาท</h1>
                 </div>
             </div>
             <div class="red-frame">

@@ -86,12 +86,39 @@ Route::middleware([
 
         $date_now = Carbon::now()->locale('th')->isoFormat('LL');
 
+        $date_now_today = now();
+
+        //เรียงค่าเงิน น้อยไปมาก
+        $asc_value_income = DB::table('transcations')
+            ->select('value')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'income')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->orderBy('value', 'ASC')
+            ->limit(1)
+            ->get();
+
+        $desc_value_income = DB::table('transcations')
+            ->select('value')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'income')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->orderBy('value', 'DESC')
+            ->limit(1)
+            ->get();
+
+        $average_value_income = DB::table('transcations')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->avg('value');
+
+
         $total_fiat_expense = ($fiatwallet + $all_bank_sum + ($noexpense_get_sum - $noexpense_sum));
 
         return view('dashboard', compact(
             'name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 
             'noexpense_sum', 'userdata', 'total_fiat_expense', 'total_money_income', 
-            'noincome_get_sum', 'noexpense_get_sum', 'date_now'));
+            'noincome_get_sum', 'noexpense_get_sum', 'date_now', 'asc_value_income', 'desc_value_income', 'average_value_income'));
 
         //return view('dashboard');
     })->name('dashboard');
@@ -114,7 +141,6 @@ Route::get('/edit-mn-no-income', [ControllerLink::class, 'editMnNoIncome'])->nam
 Route::get('/edit-mn-no-expense', [ControllerLink::class, 'editMnNoExpense'])->name('edit_mn_no_expense');
 Route::get('/delete-ac-no-income', [ControllerLink::class, 'deleteAcNoIncome'])->name('delete_ac_no_income');
 Route::get('/delete-ac-no-expense', [ControllerLink::class, 'deleteAcNoExpense'])->name('delete_ac_no_expense');
-
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');

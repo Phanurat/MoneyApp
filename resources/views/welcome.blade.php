@@ -42,9 +42,7 @@
                 <h1>Welcome to Our Platform</h1>
                 <p>Get started on your journey by exploring our amazing features!</p>
                 <a href="{{ url('/dashboard') }}" class="btn-get-started">Get Started</a>
-            </div>
-            
-                        
+            </div>      
         </div>
     </body>
 </html>
