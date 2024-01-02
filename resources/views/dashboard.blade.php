@@ -203,22 +203,22 @@
         <div style="margin-top: 10px;"></div>
         <div class="content-group">
             <div class="date_now">วันนี้ {{$date_now}} </div>
-            <div style="font-size: 20px; color: #312f2d; font-family: 'Arial', sans-serif; font-weight: bold;">รายการ</div>
+            <div style="font-size: 20px; color: #312f2d; font-family: 'Arial', sans-serif; font-weight: bold;">รายการ {{$total_all_transc}}</div>
             <div style="margin-top: 10px;"></div>
             <div class="green-frame">
                 <div>
                     <h1 class="green-head">รายรับ</h1>
-                    <h1>เฉลี่ย {{ number_format($average_value_income, 2) }}</h1>
-                    <h1>มากที่สุด {{$desc_value_income[0]->value}} บาท</h1>
-                    <h1>น้อยที่สุด {{$asc_value_income[0]->value}} บาท</h1>
-                </div>
+                    <h1>เฉลี่ย {{ $average_value_income ? number_format($average_value_income, 2) : '0.00' }}</h1>
+                    <h1>มากที่สุด {{ isset($desc_value_income[0]) ? $desc_value_income[0]->value : '0' }} บาท</h1>
+                    <h1>น้อยที่สุด {{ isset($asc_value_income[0]) ? $asc_value_income[0]->value : '0' }} บาท</h1>
+                </div>                
             </div>
             <div class="red-frame">
                 <div>
                     <h1 class="red-head">รายจ่าย</h1>
-                    <h1>เฉลี่ย</h1>
-                    <h1>มากที่สุด</h1>
-                    <h1>น้อยที่สุด</h1>
+                    <h1>เฉลี่ย {{ $average_value_expense ? number_format($average_value_expense, 2) : '0.00' }}</h1>
+                    <h1>มากที่สุด {{ isset($desc_value_expense[0]) ? $desc_value_expense[0]->value : '0' }} บาท</h1>
+                    <h1>น้อยที่สุด {{ isset($asc_value_expense[0]) ? $asc_value_expense[0]->value : '0' }} บาท</h1>
                 </div>
             </div>            
         </div>

@@ -88,11 +88,25 @@ Route::middleware([
 
         $date_now_today = now();
 
+        $total_all_transc = DB::table('transcations')
+        ->where('user_name', $userdata[0]->name)
+        ->whereDate('created_at', $date_now_today->toDateString())
+        ->count('id_transaction');
+
         //เรียงค่าเงิน น้อยไปมาก
         $asc_value_income = DB::table('transcations')
             ->select('value')
             ->where('user_name', $userdata[0]->name)
             ->where('type', 'income')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->orderBy('value', 'ASC')
+            ->limit(1)
+            ->get();
+
+        $asc_value_expense = DB::table('transcations')
+            ->select('value')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'expense')
             ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
             ->orderBy('value', 'ASC')
             ->limit(1)
@@ -107,8 +121,24 @@ Route::middleware([
             ->limit(1)
             ->get();
 
+        $desc_value_expense = DB::table('transcations')
+            ->select('value')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'expense')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->orderBy('value', 'DESC')
+            ->limit(1)
+            ->get();
+
         $average_value_income = DB::table('transcations')
             ->where('user_name', $userdata[0]->name)
+            ->where('type', 'income')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->avg('value');
+
+        $average_value_expense = DB::table('transcations')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'expense')
             ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
             ->avg('value');
 
@@ -118,7 +148,8 @@ Route::middleware([
         return view('dashboard', compact(
             'name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 
             'noexpense_sum', 'userdata', 'total_fiat_expense', 'total_money_income', 
-            'noincome_get_sum', 'noexpense_get_sum', 'date_now', 'asc_value_income', 'desc_value_income', 'average_value_income'));
+            'noincome_get_sum', 'noexpense_get_sum', 'date_now', 'asc_value_income', 'desc_value_income', 'average_value_income'
+            , 'asc_value_expense', 'desc_value_expense', 'average_value_expense', 'total_all_transc'));
 
         //return view('dashboard');
     })->name('dashboard');
