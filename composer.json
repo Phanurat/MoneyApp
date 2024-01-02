@@ -12,7 +12,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
-        "nesbot/carbon": "^2.71"
+        "nesbot/carbon": "^2.72"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

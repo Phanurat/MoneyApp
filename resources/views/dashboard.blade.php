@@ -29,6 +29,13 @@
         border-radius: 8px;
     }
 
+    .green-head {
+        font-size: 20px; 
+        color: #28a745; 
+        font-family: 'Arial', sans-serif; 
+        font-weight: bold;
+    }
+
     /* สร้างกรอบสีแดง */
     .red-frame {
         border: 2px solid #dc3545; /* สีแดง */
@@ -36,6 +43,19 @@
         background-color: #f8d7da;
         border-radius: 8px;
 
+    }
+    .red-head {
+        font-size: 20px; 
+        color: #dc3545; 
+        font-family: 'Arial', sans-serif; 
+        font-weight: bold;
+    }
+
+    .date_now {
+        font-size: 20px; 
+        color: #ff6600; 
+        font-family: 'Arial', sans-serif; 
+        font-weight: bold;
     }
 </style>
 
@@ -182,17 +202,20 @@
         </div>
         <div style="margin-top: 10px;"></div>
         <div class="content-group">
-            <div>วันนี้</div>
-            <div>รายการ</div>
+            <div class="date_now">วันนี้ {{$date_now}} </div>
+            <div style="font-size: 20px; color: #312f2d; font-family: 'Arial', sans-serif; font-weight: bold;">รายการ</div>
+            <div style="margin-top: 10px;"></div>
             <div class="green-frame">
-                <div>รายรับ
+                <div>
+                    <h1 class="green-head">รายรับ</h1>
                     <h1>เฉลี่ย</h1>
                     <h1>มากที่สุด</h1>
                     <h1>น้อยที่สุด</h1>
                 </div>
             </div>
             <div class="red-frame">
-                <div>รายจ่าย
+                <div>
+                    <h1 class="red-head">รายจ่าย</h1>
                     <h1>เฉลี่ย</h1>
                     <h1>มากที่สุด</h1>
                     <h1>น้อยที่สุด</h1>

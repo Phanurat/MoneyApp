@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ControllerLink;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,12 +84,14 @@ Route::middleware([
         ->where('type', 'expense')
         ->sum('value');
 
+        $date_now = Carbon::now()->locale('th')->isoFormat('LL');
+
         $total_fiat_expense = ($fiatwallet + $all_bank_sum + ($noexpense_get_sum - $noexpense_sum));
 
         return view('dashboard', compact(
             'name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 
             'noexpense_sum', 'userdata', 'total_fiat_expense', 'total_money_income', 
-            'noincome_get_sum', 'noexpense_get_sum'));
+            'noincome_get_sum', 'noexpense_get_sum', 'date_now'));
 
         //return view('dashboard');
     })->name('dashboard');
