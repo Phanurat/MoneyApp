@@ -173,6 +173,7 @@ Route::get('/edit-mn-no-income', [ControllerLink::class, 'editMnNoIncome'])->nam
 Route::get('/edit-mn-no-expense', [ControllerLink::class, 'editMnNoExpense'])->name('edit_mn_no_expense');
 Route::get('/delete-ac-no-income', [ControllerLink::class, 'deleteAcNoIncome'])->name('delete_ac_no_income');
 Route::get('/delete-ac-no-expense', [ControllerLink::class, 'deleteAcNoExpense'])->name('delete_ac_no_expense');
+Route::get('/add-transaction-bank', [ControllerLink::class, 'addTransactionBank'])->name('add_transaction_bank');
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');

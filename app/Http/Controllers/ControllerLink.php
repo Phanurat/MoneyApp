@@ -29,6 +29,12 @@ class ControllerLink extends Controller
     
         return view('add_transcation', compact('name', 'date_now_today', 'date_year'));
     }
+
+    public function addTransactionBank(){
+
+        
+        return view('add_transaction_bank');
+    }
      
 
     
