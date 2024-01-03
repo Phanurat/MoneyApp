@@ -148,8 +148,9 @@ Route::middleware([
         return view('dashboard', compact(
             'name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 
             'noexpense_sum', 'userdata', 'total_fiat_expense', 'total_money_income', 
-            'noincome_get_sum', 'noexpense_get_sum', 'date_now', 'asc_value_income', 'desc_value_income', 'average_value_income'
-            , 'asc_value_expense', 'desc_value_expense', 'average_value_expense', 'total_all_transc'));
+            'noincome_get_sum', 'noexpense_get_sum', 'date_now', 'asc_value_income', 'desc_value_income', 
+            'average_value_income', 'asc_value_expense', 'desc_value_expense', 'average_value_expense', 
+            'total_all_transc'));
 
         //return view('dashboard');
     })->name('dashboard');

@@ -10,6 +10,11 @@
         <form method="post" action="{{ route('save_transcation') }}">
             @csrf
             <div class="mb-3">
+                <label for="datetimeinput" class="form-label">เวลา</label>
+                <input type="datetime-local" class="form-control" id="datetimeinput" name="datetime_trans">
+            </div>
+
+            <div class="mb-3">
               <label for="nameinput" class="form-label">ชื่อรายการ</label>
               <input type="text" class="form-control" name="name_trans">
             </div>
@@ -33,3 +38,17 @@
     </div> 
 
 </x-app-layout>
+
+<script>
+    // ดึงข้อมูลวันที่และเวลาปัจจุบัน
+    let currentDatetime = new Date();
+    let year = currentDatetime.getFullYear();
+    let month = (currentDatetime.getMonth() + 1).toString().padStart(2, '0');
+    let day = currentDatetime.getDate().toString().padStart(2, '0');
+    let hours = currentDatetime.getHours().toString().padStart(2, '0');
+    let minutes = currentDatetime.getMinutes().toString().padStart(2, '0');
+    let datetimeString = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+    // กำหนดค่าเริ่มต้นใน input datetime-local
+    document.getElementById('datetimeinput').value = datetimeString;
+</script>

@@ -23,10 +23,13 @@ class ControllerLink extends Controller
     public function addTranscation()
     {
         $user = auth()->user();
-        //return view('dashboard', compact('wallet_bank'));
         $name = DB::table('users')->select('name', 'id')->where('id', $user->id)->get();
-        return view('add_transcation', compact('name'));
+        $date_now_today = now();
+        $date_year = (date("y"));
+    
+        return view('add_transcation', compact('name', 'date_now_today', 'date_year'));
     }
+     
 
     
 /**********************************************************************************************************/
@@ -543,6 +546,7 @@ class ControllerLink extends Controller
         $name_trans = $request->input('name_trans');
         $value_trans = $request->input('value_trans');
         $type = $request->input('select_type');
+        $time = $request->input('datetime_trans');
 
         //update fiat to users table
         if ($type === 'income') { 
@@ -563,16 +567,16 @@ class ControllerLink extends Controller
         }
         
         //Set Time Zone Asia
-        Carbon::setLocale('th_TH');
+        /*Carbon::setLocale('th_TH');
         Carbon::setToStringFormat('l jS F Y h:i:s A');
         date_default_timezone_set('Asia/Bangkok');
-        $time_at = Carbon::now('Asia/Bangkok');
+        $time_at = Carbon::now('Asia/Bangkok');*/
 
         DB::table('transcations')->insert([
             'name_transaction'=>$name_trans,
             'value'=>$value_trans,
             'type'=>$type,
-            'created_at'=>$time_at,
+            'created_at'=>$time,
             'user_name'=>$userdata->name,
         ]);
 
