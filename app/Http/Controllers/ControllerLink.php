@@ -31,9 +31,17 @@ class ControllerLink extends Controller
     }
 
     public function addTransactionBank(){
+        $user = auth()->user();
+        $userdata = DB::table('users')
+            ->select('name', 'id', 'fiat_wallet')
+            ->where('id', $user->id)->get();
 
-        
-        return view('add_transaction_bank');
+        $show_bank_data = DB::table('bank')
+        ->select('name_bank', 'wallet_bank', 'id_bank')
+        ->where('user_name', $userdata[0]->name)
+        ->get();
+
+        return view('add_transaction_bank', compact('show_bank_data'));
     }
      
 

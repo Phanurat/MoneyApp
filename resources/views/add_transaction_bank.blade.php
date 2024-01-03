@@ -15,8 +15,14 @@
             </div>
 
             <div class="mb-3">
-                <label for="nameinput" class="form-label">ชื่อธนาคาร</label>
-                <input type="text" class="form-control" name="name_trans">
+                <label for="nameinput" class="form-label">ชื่อธนาคาร</label>                    
+                <select name="select_type" id="select-type" style="width: 100%" required>
+                    <option value="" disabled selected> --- เลือกธนาคาร --- </option>
+                    @foreach ($show_bank_data as $allbank)
+                        <option value="{{$allbank->name_bank}}">ธนาคาร: 
+                            {{$allbank->name_bank}} เงินในบัญชี: {{$allbank->wallet_bank}} บาท</option>
+                    @endforeach
+                </select>    
             </div>
             
             <div class="mb-3">
@@ -27,9 +33,6 @@
                 <label for="valueinput" class="form-label">ประเภท</label>
                 <select name="select_type" id="select-type" required>
                     <option value="" disabled selected> --- เลือกประเภท --- </option>
-                    <!--<option value="income">รายได้</option>
-                    <option value="expense">รายจ่าย</option>-->
-                    <!--<option value="" disabled selected> ---- </option>-->
                     <option value="inbank">รายได้ (ธนาคาร)</option>
                     <option value="exbank">รายจ่าย (ธนาคาร)</option>
                 </select>
