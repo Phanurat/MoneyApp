@@ -7,7 +7,7 @@
 
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
-        <form method="post" action="{{ route('save_transcation') }}">
+        <form method="post" action="{{ route('save_transcation_bank') }}">
             @csrf
             <div class="mb-3">
                 <label for="datetimeinput" class="form-label">เวลา</label>
@@ -16,10 +16,10 @@
 
             <div class="mb-3">
                 <label for="nameinput" class="form-label">ชื่อธนาคาร</label>                    
-                <select name="select_type" id="select-type" style="width: 100%" required>
-                    <option value="" disabled selected> --- เลือกธนาคาร --- </option>
+                <select name="select_id" id="select-type" style="width: 100%" required>
+                    <option value="none" disabled selected> --- เลือกธนาคาร --- </option>
                     @foreach ($show_bank_data as $allbank)
-                        <option value="{{$allbank->name_bank}}">ธนาคาร: 
+                        <option value="{{$allbank->id_bank}}" name="id_bank">ธนาคาร: 
                             {{$allbank->name_bank}} เงินในบัญชี: {{$allbank->wallet_bank}} บาท</option>
                     @endforeach
                 </select>    

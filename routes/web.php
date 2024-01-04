@@ -177,6 +177,7 @@ Route::get('/add-transaction-bank', [ControllerLink::class, 'addTransactionBank'
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
+Route::post('/save-transcation-bank', [ControllerLink::class, 'saveTransactionBank'])->name('save_transcation_bank');
 Route::post('/update-fiat', [ControllerLink::class, 'updateFiat'])->name('update_fiat');
 Route::post('/add-ac-bank', [ControllerLink::class, 'addAcBank'])->name('add_ac_bank');
 Route::post('/update-bank', [ControllerLink::class, 'updateBank'])->name('update_bank');

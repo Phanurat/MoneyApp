@@ -561,10 +561,11 @@ class ControllerLink extends Controller
         $value_trans = $request->input('value_trans');
         $type = $request->input('select_type');
         $time = $request->input('datetime_trans');
+        //$id_bank = $request->input("id_bank");
 
         //update fiat to users table
         if ($type === 'income') { 
-            $add_income = $userdata->fiat_wallet + $value_trans;
+            $add_income = ($userdata->fiat_wallet + $value_trans);
 
             //update fiat + income
             DB::table('users')
@@ -572,14 +573,14 @@ class ControllerLink extends Controller
                 ->update(['fiat_wallet' => $add_income]);
         
         } elseif ($type === 'expense') {
-            $subtract_expense = $userdata->fiat_wallet - $value_trans;
+            $subtract_expense = ($userdata->fiat_wallet - $value_trans);
 
             //update fiat - expense
             DB::table('users')
                 ->where('name', $userdata->name)
                 ->update(['fiat_wallet' => $subtract_expense]);
         }
-        
+            
         //Set Time Zone Asia
         /*Carbon::setLocale('th_TH');
         Carbon::setToStringFormat('l jS F Y h:i:s A');
@@ -596,6 +597,62 @@ class ControllerLink extends Controller
 
         return redirect()->route('dashboard');
     }
+
+    public function saveTransactionBank(Request $request){
+
+        $datetime_trans_bank = $request->input('datetime_trans');
+        $id_bank = $request->input('select_id');
+        $select_type_bank = $request->input('select_type');
+        $value_trans_bank = $request->input('value_trans');
+
+        $user = auth()->user();
+        $userdata = DB::table('users')
+            ->select('name', 'id', 'fiat_wallet')
+            ->where('id', $user->id)
+            ->first();
+        
+        $bank_data_add = DB::table('bank')
+            ->select('id_bank','wallet_bank', 'user_name')
+            ->where('user_name', $userdata->name)
+            ->where('id_bank', $id_bank)
+            ->first();
+ 
+        echo "เวลา :". ($datetime_trans_bank)."<br>";
+        echo "ID :". ($id_bank)."<br>" ;
+        echo "จำนวนเงินที่กรอก :". ($value_trans_bank)."<br>";
+        echo "ประเภท :".($select_type_bank)."<br>" ;
+        echo "เงินในธนาคารที่มี :". ($bank_data_add->wallet_bank)."<br>" ;
+        echo "เงินในธนาคารที่มี รวม :". ($bank_data_add->wallet_bank + $value_trans_bank)."<br>" ;
+        echo "เงินในธนาคารที่มี ลบ : ". ($bank_data_add->wallet_bank - $value_trans_bank)."<br>";
+
+        $add_inbank = ($bank_data_add->wallet_bank + $value_trans_bank);
+        $add_exbank = ($bank_data_add->wallet_bank - $value_trans_bank);
+
+        if($select_type_bank === "inbank"){
+            DB::table('bank')
+                ->where('user_name', $userdata->name)
+                ->where('id_bank', $id_bank)
+                ->update(['wallet_bank' => $add_inbank]); 
+
+        }elseif($select_type_bank === "exbank"){
+            DB::table('bank')
+                ->where('user_name', $userdata->name)
+                ->where('id_bank', $id_bank)
+                ->update(['wallet_bank' => $add_exbank]);
+        }
+        
+        DB::table('transcations')->insert([
+            'name_transaction'=>"เงินเข้าออกจากธนาคาร",
+            'value'=>$value_trans_bank,
+            'type'=>$select_type_bank,
+            'created_at'=>$datetime_trans_bank,
+            'user_name'=>$userdata->name,
+        ]);
+
+        return redirect()->route('dashboard');
+
+    }
+    
 
 /**********************************************************************************************************/
 /**********************************************************************************************************/
