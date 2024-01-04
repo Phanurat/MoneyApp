@@ -57,6 +57,7 @@
         font-family: 'Arial', sans-serif; 
         font-weight: bold;
     }
+
 </style>
 
 <x-app-layout>
@@ -228,7 +229,7 @@
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
         <div class="input-group">
-            <table class="table table-Success table-striped">
+            <table class="table table-Secondary table-striped">
                 <thead>
                     <tr>
                         <th scope="col">ชื่อรายการ</th>
@@ -239,9 +240,15 @@
                 <tbody>
                     @foreach ($all_trans as $index => $transaction)
                         <tr>
-                            <td>{{ $transaction->name_transaction}}</td>
-                            <td>{{ number_format($transaction->value)}}</td>
-                            <td>{{ $transaction->created_at}}</td>
+                            <td>{{ $transaction->name_transaction }}</td>
+                            <td>
+                                @if ($transaction->type === 'income' || $transaction->type === 'inbank')
+                                    +{{ number_format($transaction->value) }}
+                                @elseif ($transaction->type === 'expense' || $transaction->type === 'exbank')
+                                    -{{ number_format($transaction->value) }}
+                                @endif
+                            </td>
+                            <td>{{ $transaction->created_at }}</td>
                         </tr>
                     @endforeach
                 </tbody>
