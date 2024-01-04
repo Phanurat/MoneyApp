@@ -142,6 +142,13 @@ Route::middleware([
             ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
             ->avg('value');
 
+        //all transcation
+        $all_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
 
         $total_fiat_expense = ($fiatwallet + $all_bank_sum + ($noexpense_get_sum - $noexpense_sum));
 
@@ -150,7 +157,7 @@ Route::middleware([
             'noexpense_sum', 'userdata', 'total_fiat_expense', 'total_money_income', 
             'noincome_get_sum', 'noexpense_get_sum', 'date_now', 'asc_value_income', 'desc_value_income', 
             'average_value_income', 'asc_value_expense', 'desc_value_expense', 'average_value_expense', 
-            'total_all_transc'));
+            'total_all_transc', 'all_trans'));
 
         //return view('dashboard');
     })->name('dashboard');

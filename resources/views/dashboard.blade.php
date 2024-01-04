@@ -225,14 +225,29 @@
         <div style="margin-top: 10px;"></div>
     </div>
 
-    <div style="margin-top: 500px;"></div>
+    <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
         <div class="input-group">
-            <input id="input4" class="form-control" type="text" aria-label="Disabled input example" disabled>
-            <div class="input-group-append">
-                <span class="input-group-text"></span>
-            </div>
+            <table class="table table-Success table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ชื่อรายการ</th>
+                        <th scope="col">จำนวนเงิน</th>
+                        <th scope="col">วันที่</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($all_trans as $index => $transaction)
+                        <tr>
+                            <td>{{ $transaction->name_transaction}}</td>
+                            <td>{{ number_format($transaction->value)}}</td>
+                            <td>{{ $transaction->created_at}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>            
         </div>
     </div>
+    <div style="margin-top: 60px;"></div>
     
 </x-app-layout>
