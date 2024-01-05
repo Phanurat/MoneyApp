@@ -183,6 +183,7 @@ Route::get('/delete-ac-no-income', [ControllerLink::class, 'deleteAcNoIncome'])-
 Route::get('/delete-ac-no-expense', [ControllerLink::class, 'deleteAcNoExpense'])->name('delete_ac_no_expense');
 Route::get('/add-transaction-bank', [ControllerLink::class, 'addTransactionBank'])->name('add_transaction_bank');
 Route::get('/generate-pdf', [updownController::class, 'generatePDF'])->name('generate-pdf');
+Route::get('/all-trans-export', [updownController::class, 'allTransExport'])->name('all-trans-export');
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
