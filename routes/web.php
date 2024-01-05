@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ControllerLink;
+use App\Http\Controllers\updownController;
 use Carbon\Carbon;
 
 /*
@@ -181,6 +182,7 @@ Route::get('/edit-mn-no-expense', [ControllerLink::class, 'editMnNoExpense'])->n
 Route::get('/delete-ac-no-income', [ControllerLink::class, 'deleteAcNoIncome'])->name('delete_ac_no_income');
 Route::get('/delete-ac-no-expense', [ControllerLink::class, 'deleteAcNoExpense'])->name('delete_ac_no_expense');
 Route::get('/add-transaction-bank', [ControllerLink::class, 'addTransactionBank'])->name('add_transaction_bank');
+Route::get('/generate-pdf', [updownController::class, 'generatePDF'])->name('generate-pdf');
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
