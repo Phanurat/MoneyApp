@@ -7,11 +7,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Dompdf\Options;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
-require 'vendor/autoload.php';
-
 
 class updownController extends Controller
 {
@@ -87,6 +82,43 @@ class updownController extends Controller
         return $dompdf->stream('all_transactions.pdf');
 
     }
+    //Json Export file data
+    public function jsonExportFile(){
+        $user = auth()->user();
+        $userdata = DB::table('users')
+            ->select('name', 'id', 'fiat_wallet')
+            ->where('id', $user->id)->first();
+    
+        $all_trans = DB::table('transcations')
+            ->where('user_name', $userdata->name)
+            ->orderByDesc('id_transaction')
+            ->get();
+    
+        // แปลงข้อมูลใน $all_trans เป็นอาร์เรย์และกำหนดข้อมูลที่ต้องการเก็บ
+        $data = [];
+        foreach ($all_trans as $transaction) {
+            $data[] = [
+                'NameTransaction' => $transaction->name_transaction,
+                'Value' => $transaction->value,
+                'DateAT' => $transaction->created_at,
+            ];
+        }
+    
+        // แปลงข้อมูลเป็น JSON
+        $jsonData = json_encode($data, JSON_PRETTY_PRINT);
+    
+        // บันทึก JSON ลงในไฟล์
+        $file = 'JsonData/transactions.json';
+        file_put_contents($file, $jsonData);
+    
+        // ตรวจสอบการสร้างไฟล์
+        if (file_exists($file)) {
+            return "สร้าง JSON file สำเร็จ: $file";
+        } else {
+            return "มีปัญหาในการสร้าง JSON file";
+        }
+    }
+    
     
 }
 ?>

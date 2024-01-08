@@ -255,10 +255,6 @@
             </table>            
         </div>
     </div>
-    <div class="card mx-auto" style="width: 30%;">
-        <a href="{{ route('all-trans-export') }}" class="add-report-button">Export PDF</a>
-        <a href="{{ route('all-trans-export') }}" class="add-report-button">Export Excel</a>
-    </div>
     <div style="margin-top: 60px;"></div>
     
 </x-app-layout>
