@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Dompdf\Options;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+require 'vendor/autoload.php';
 
 
 class updownController extends Controller

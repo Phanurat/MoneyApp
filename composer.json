@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
         "mpdf/mpdf": "^6.1",
-        "nesbot/carbon": "^2.72"
+        "nesbot/carbon": "^2.72",
+        "phpoffice/phpexcel": "^1.8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
