@@ -93,6 +93,14 @@ Route::middleware([
         $date_now = Carbon::now()->locale('th')->isoFormat('LL');
 
         $date_now_today = now();
+        $yesterday = Carbon::now()->subDays(1);
+        $oneweek = Carbon::now()->subDays(7);
+        $twoweek = Carbon::now()->subDays(14);
+        $onemounth = Carbon::now()->subMonth();
+        $threemounth = Carbon::now()->subMonth(3);
+        $sixmounth = Carbon::now()->subMonth(6);
+        $oneyear = Carbon::now()->subYear();
+        
 
         $total_all_transc = DB::table('transcations')
         ->where('user_name', $userdata[0]->name)
@@ -149,13 +157,68 @@ Route::middleware([
             ->avg('value');
 
         //all transcation
+        $today_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $date_now_today->toDateString())
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $yesterday_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $yesterday)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $oneweek_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $oneweek)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $twoweek_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $twoweek)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $onemounth_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $onemounth)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $threemounth_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $threemounth)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $sixmounth_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $sixmounth)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $oneyear_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $oneyear)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
         $all_trans = DB::table('transcations')
             ->select('*')
             ->where('user_name', $userdata[0]->name)
             ->orderBy('created_at', 'DESC')
             ->get();
-
-
+    
         $total_fiat_expense = ($fiatwallet + $all_bank_sum + ($noexpense_get_sum - $noexpense_sum));
 
         return view('dashboard', compact(
@@ -163,7 +226,9 @@ Route::middleware([
             'noexpense_sum', 'userdata', 'total_fiat_expense', 'total_money_income', 
             'noincome_get_sum', 'noexpense_get_sum', 'date_now', 'asc_value_income', 'desc_value_income', 
             'average_value_income', 'asc_value_expense', 'desc_value_expense', 'average_value_expense', 
-            'total_all_transc', 'all_trans'));
+            'total_all_transc', 'today_trans', 'yesterday_trans', 'oneweek_trans', 'twoweek_trans',
+            'onemounth_trans','threemounth_trans','sixmounth_trans', 'oneyear_trans', 'all_trans',
+        ));
 
         //return view('dashboard');
     })->name('dashboard');
