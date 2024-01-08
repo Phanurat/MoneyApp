@@ -22,6 +22,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Test
+Route::get('/index-in-test', function(){
+    return view('/test/index');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
