@@ -229,43 +229,25 @@
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
         <div class="input-group">
-            <select name="select_day" id="select_day">
-                <option disabled selected>วันที่</option>
-            </select>
-            <table class="table table-Secondary table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">ชื่อรายการ</th>
-                        <th scope="col">จำนวนเงิน</th>
-                        <th scope="col">วันที่</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($today_trans as $index => $transaction)
-                        <tr>
-                            <td>{{ $transaction->name_transaction }}</td>
-                            <td>
-                                @if ($transaction->type === 'income' || $transaction->type === 'inbank')
-                                    +{{ number_format($transaction->value) }}
-                                @elseif ($transaction->type === 'expense' || $transaction->type === 'exbank')
-                                    -{{ number_format($transaction->value) }}
-                                @endif
-                            </td>
-                            <td>{{ $transaction->created_at }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>            
+            <form>
+                <select name="mySelect" id="mySelect" onchange="myFunction()">
+                    <option>วันที่</option>
+                    <option>เมื่อวาน</option>
+                    <option>1 อาทิตย์</option>
+                    <option>2 อาทิตย์</option>
+                    <option>1 เดือน</option>
+                    <option>3 เดือน</option>
+                    <option>6 เดือน</option>
+                    <option>1 ปี</option>
+                    <option>ทั้งหมด</option>
+                </select>
+            </form>           
         </div>
     </div>
-
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
         <div class="input-group">
-            <select name="select_day" id="select_day">
-                <option disabled selected>เมื่อวาน</option>
-            </select>
-            <table class="table table-Secondary table-striped">
+            <table  class="table table-Secondary table-striped" id="demo">
                 <thead>
                     <tr>
                         <th scope="col">ชื่อรายการ</th>
@@ -288,241 +270,24 @@
                         </tr>
                     @endforeach
                 </tbody>
-            </table>            
-        </div>
-    </div>
-
-    <div style="margin-top: 10px;"></div>
-    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
-        <div class="input-group">
-            <select name="select_day" id="select_day">
-                <option disabled selected>1 อาทิตย์</option>
-            </select>
-            <table class="table table-Secondary table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">ชื่อรายการ</th>
-                        <th scope="col">จำนวนเงิน</th>
-                        <th scope="col">วันที่</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($oneweek_trans as $index => $transaction)
-                        <tr>
-                            <td>{{ $transaction->name_transaction }}</td>
-                            <td>
-                                @if ($transaction->type === 'income' || $transaction->type === 'inbank')
-                                    +{{ number_format($transaction->value) }}
-                                @elseif ($transaction->type === 'expense' || $transaction->type === 'exbank')
-                                    -{{ number_format($transaction->value) }}
-                                @endif
-                            </td>
-                            <td>{{ $transaction->created_at }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>            
-        </div>
-    </div>
-
-    <div style="margin-top: 10px;"></div>
-    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
-        <div class="input-group">
-            <select name="select_day" id="select_day">
-                <option disabled selected>2 อาทิตย์</option>
-            </select>
-            <table class="table table-Secondary table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">ชื่อรายการ</th>
-                        <th scope="col">จำนวนเงิน</th>
-                        <th scope="col">วันที่</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($twoweek_trans as $index => $transaction)
-                        <tr>
-                            <td>{{ $transaction->name_transaction }}</td>
-                            <td>
-                                @if ($transaction->type === 'income' || $transaction->type === 'inbank')
-                                    +{{ number_format($transaction->value) }}
-                                @elseif ($transaction->type === 'expense' || $transaction->type === 'exbank')
-                                    -{{ number_format($transaction->value) }}
-                                @endif
-                            </td>
-                            <td>{{ $transaction->created_at }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>            
-        </div>
-    </div>
-
-    <div style="margin-top: 10px;"></div>
-    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
-        <div class="input-group">
-            <select name="select_day" id="select_day">
-                <option disabled selected>1 เดือน</option>
-            </select>
-            <table class="table table-Secondary table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">ชื่อรายการ</th>
-                        <th scope="col">จำนวนเงิน</th>
-                        <th scope="col">วันที่</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($onemounth_trans as $index => $transaction)
-                        <tr>
-                            <td>{{ $transaction->name_transaction }}</td>
-                            <td>
-                                @if ($transaction->type === 'income' || $transaction->type === 'inbank')
-                                    +{{ number_format($transaction->value) }}
-                                @elseif ($transaction->type === 'expense' || $transaction->type === 'exbank')
-                                    -{{ number_format($transaction->value) }}
-                                @endif
-                            </td>
-                            <td>{{ $transaction->created_at }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>            
-        </div>
-    </div>
-
-    <div style="margin-top: 10px;"></div>
-    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
-        <div class="input-group">
-            <select name="select_day" id="select_day">
-                <option disabled selected>3 เดือน</option>
-            </select>
-            <table class="table table-Secondary table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">ชื่อรายการ</th>
-                        <th scope="col">จำนวนเงิน</th>
-                        <th scope="col">วันที่</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($threemounth_trans as $index => $transaction)
-                        <tr>
-                            <td>{{ $transaction->name_transaction }}</td>
-                            <td>
-                                @if ($transaction->type === 'income' || $transaction->type === 'inbank')
-                                    +{{ number_format($transaction->value) }}
-                                @elseif ($transaction->type === 'expense' || $transaction->type === 'exbank')
-                                    -{{ number_format($transaction->value) }}
-                                @endif
-                            </td>
-                            <td>{{ $transaction->created_at }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>            
-        </div>
-    </div>
-
-    <div style="margin-top: 10px;"></div>
-    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
-        <div class="input-group">
-            <select name="select_day" id="select_day">
-                <option disabled selected>6 เดือน</option>
-            </select>
-            <table class="table table-Secondary table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">ชื่อรายการ</th>
-                        <th scope="col">จำนวนเงิน</th>
-                        <th scope="col">วันที่</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($sixmounth_trans as $index => $transaction)
-                        <tr>
-                            <td>{{ $transaction->name_transaction }}</td>
-                            <td>
-                                @if ($transaction->type === 'income' || $transaction->type === 'inbank')
-                                    +{{ number_format($transaction->value) }}
-                                @elseif ($transaction->type === 'expense' || $transaction->type === 'exbank')
-                                    -{{ number_format($transaction->value) }}
-                                @endif
-                            </td>
-                            <td>{{ $transaction->created_at }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>            
-        </div>
-    </div>
-
-    <div style="margin-top: 10px;"></div>
-    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
-        <div class="input-group">
-            <select name="select_day" id="select_day">
-                <option disabled selected>1 ปี</option>
-            </select>
-            <table class="table table-Secondary table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">ชื่อรายการ</th>
-                        <th scope="col">จำนวนเงิน</th>
-                        <th scope="col">วันที่</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($oneyear_trans as $index => $transaction)
-                        <tr>
-                            <td>{{ $transaction->name_transaction }}</td>
-                            <td>
-                                @if ($transaction->type === 'income' || $transaction->type === 'inbank')
-                                    +{{ number_format($transaction->value) }}
-                                @elseif ($transaction->type === 'expense' || $transaction->type === 'exbank')
-                                    -{{ number_format($transaction->value) }}
-                                @endif
-                            </td>
-                            <td>{{ $transaction->created_at }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>            
-        </div>
-    </div>
-
-    <div style="margin-top: 10px;"></div>
-    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
-        <div class="input-group">
-            <select name="select_day" id="select_day">
-                <option disabled selected>ทั้งหมด</option>
-            </select>
-            <table class="table table-Secondary table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">ชื่อรายการ</th>
-                        <th scope="col">จำนวนเงิน</th>
-                        <th scope="col">วันที่</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($all_trans as $index => $transaction)
-                        <tr>
-                            <td>{{ $transaction->name_transaction }}</td>
-                            <td>
-                                @if ($transaction->type === 'income' || $transaction->type === 'inbank')
-                                    +{{ number_format($transaction->value) }}
-                                @elseif ($transaction->type === 'expense' || $transaction->type === 'exbank')
-                                    -{{ number_format($transaction->value) }}
-                                @endif
-                            </td>
-                            <td>{{ $transaction->created_at }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>            
+            </table>
+            </table>
         </div>
     </div>
 
     <div style="margin-top: 60px;"></div>
     
 </x-app-layout>
+
+<script>
+    function myFunction(selectedOption) {
+        document.getElementById("demo").innerHTML = selectedOption;
+    }
+
+    document.getElementById("mySelect").addEventListener("change", function() {
+        var x = document.getElementById("mySelect");
+        var i = x.selectedIndex;
+        var selectedOption = x.options[i].text;
+        myFunction(selectedOption);
+    });
+</script>

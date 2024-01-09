@@ -219,8 +219,6 @@ Route::middleware([
             ->orderBy('created_at', 'DESC')
             ->get();
         
-        
-    
         $total_fiat_expense = ($fiatwallet + $all_bank_sum + ($noexpense_get_sum - $noexpense_sum));
 
         return view('dashboard', compact(
@@ -230,6 +228,7 @@ Route::middleware([
             'average_value_income', 'asc_value_expense', 'desc_value_expense', 'average_value_expense', 
             'total_all_transc', 'today_trans', 'yesterday_trans', 'oneweek_trans', 'twoweek_trans',
             'onemounth_trans','threemounth_trans','sixmounth_trans', 'oneyear_trans', 'all_trans',
+            
         ));
 
         //return view('dashboard');
