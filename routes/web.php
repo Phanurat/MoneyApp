@@ -100,6 +100,12 @@ Route::middleware([
         $threemounth = Carbon::now()->subMonth(3);
         $sixmounth = Carbon::now()->subMonth(6);
         $oneyear = Carbon::now()->subYear();
+
+        $all_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->orderBy('created_at', 'DESC')
+            ->get();
         
 
         $total_all_transc = DB::table('transcations')
@@ -174,50 +180,46 @@ Route::middleware([
         $oneweek_trans = DB::table('transcations')
             ->select('*')
             ->where('user_name', $userdata[0]->name)
-            ->whereDate('created_at', $oneweek)
+            ->whereBetween('created_at', [$oneweek, $date_now_today])
             ->orderBy('created_at', 'DESC')
             ->get();
         
         $twoweek_trans = DB::table('transcations')
             ->select('*')
             ->where('user_name', $userdata[0]->name)
-            ->whereDate('created_at', $twoweek)
+            ->whereBetween('created_at', [$twoweek, $date_now_today])
             ->orderBy('created_at', 'DESC')
             ->get();
         
         $onemounth_trans = DB::table('transcations')
             ->select('*')
             ->where('user_name', $userdata[0]->name)
-            ->whereDate('created_at', $onemounth)
+            ->whereBetween('created_at', [$onemounth, $date_now_today])
             ->orderBy('created_at', 'DESC')
             ->get();
         
         $threemounth_trans = DB::table('transcations')
             ->select('*')
             ->where('user_name', $userdata[0]->name)
-            ->whereDate('created_at', $threemounth)
+            ->whereBetween('created_at', [$threemounth, $date_now_today])
             ->orderBy('created_at', 'DESC')
             ->get();
         
         $sixmounth_trans = DB::table('transcations')
             ->select('*')
             ->where('user_name', $userdata[0]->name)
-            ->whereDate('created_at', $sixmounth)
+            ->whereBetween('created_at', [$sixmounth, $date_now_today])
             ->orderBy('created_at', 'DESC')
             ->get();
         
         $oneyear_trans = DB::table('transcations')
             ->select('*')
             ->where('user_name', $userdata[0]->name)
-            ->whereDate('created_at', $oneyear)
+            ->whereBetween('created_at', [$oneyear, $date_now_today])
             ->orderBy('created_at', 'DESC')
             ->get();
         
-        $all_trans = DB::table('transcations')
-            ->select('*')
-            ->where('user_name', $userdata[0]->name)
-            ->orderBy('created_at', 'DESC')
-            ->get();
+        
     
         $total_fiat_expense = ($fiatwallet + $all_bank_sum + ($noexpense_get_sum - $noexpense_sum));
 
