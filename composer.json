@@ -6,13 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.1",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
-        "nesbot/carbon": "^2.71"
+        "mpdf/mpdf": "^6.1",
+        "nesbot/carbon": "^2.72",
+        "phpoffice/phpexcel": "^1.8"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

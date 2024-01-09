@@ -4,6 +4,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ControllerLink;
+use App\Http\Controllers\updownController;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,11 @@ use App\Http\Controllers\ControllerLink;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+//Test
+Route::get('/index-in-test', function(){
+    return view('/test/index');
 });
 
 Route::middleware([
@@ -68,20 +75,161 @@ Route::middleware([
         //Show Total fiat - total noexpense
         $fiatwallet = $userdata[0]->fiat_wallet;
 
+        //select wallet_get  - wallet_noincome = 0
+
+        $wallet_get_noincome = DB::table('no_income')
+        ->select('wallet_get','wallet_noincome')
+        ->where('user_name', $userdata[0]->name)
+        ->get();
+
         //Show Total fiat + total Bank + noincome
-        $total_money_income = ($fiatwallet + $all_bank_sum + $noexpense_sum);
+        $total_money_income = ($fiatwallet + $all_bank_sum + ($noincome_sum - $noincome_get_sum));
         
         $total_sum_expense = DB::table('transcations')
         ->where('user_name', $userdata[0]->name)
         ->where('type', 'expense')
         ->sum('value');
 
-        $total_fiat_expense = ($fiatwallet - $noexpense_sum);
+        $date_now = Carbon::now()->locale('th')->isoFormat('LL');
+
+        $date_now_today = now();
+        $yesterday = Carbon::now()->subDays(1);
+        $oneweek = Carbon::now()->subDays(7);
+        $twoweek = Carbon::now()->subDays(14);
+        $onemounth = Carbon::now()->subMonth();
+        $threemounth = Carbon::now()->subMonth(3);
+        $sixmounth = Carbon::now()->subMonth(6);
+        $oneyear = Carbon::now()->subYear();
+
+        $all_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+
+        $total_all_transc = DB::table('transcations')
+        ->where('user_name', $userdata[0]->name)
+        ->whereDate('created_at', $date_now_today->toDateString())
+        ->count('id_transaction');
+
+        //เรียงค่าเงิน น้อยไปมาก
+        $asc_value_income = DB::table('transcations')
+            ->select('value')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'income')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->orderBy('value', 'ASC')
+            ->limit(1)
+            ->get();
+
+        $asc_value_expense = DB::table('transcations')
+            ->select('value')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'expense')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->orderBy('value', 'ASC')
+            ->limit(1)
+            ->get();
+
+        $desc_value_income = DB::table('transcations')
+            ->select('value')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'income')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->orderBy('value', 'DESC')
+            ->limit(1)
+            ->get();
+
+        $desc_value_expense = DB::table('transcations')
+            ->select('value')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'expense')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->orderBy('value', 'DESC')
+            ->limit(1)
+            ->get();
+
+        $average_value_income = DB::table('transcations')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'income')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->avg('value');
+
+        $average_value_expense = DB::table('transcations')
+            ->where('user_name', $userdata[0]->name)
+            ->where('type', 'expense')
+            ->whereDate('created_at', $date_now_today->toDateString()) // กรองเฉพาะวันที่ตรงกับวันปัจจุบัน
+            ->avg('value');
+
+        //all transcation
+        $today_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $date_now_today->toDateString())
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $yesterday_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereDate('created_at', $yesterday)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $oneweek_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereBetween('created_at', [$oneweek, $date_now_today])
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $twoweek_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereBetween('created_at', [$twoweek, $date_now_today])
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $onemounth_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereBetween('created_at', [$onemounth, $date_now_today])
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $threemounth_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereBetween('created_at', [$threemounth, $date_now_today])
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $sixmounth_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereBetween('created_at', [$sixmounth, $date_now_today])
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $oneyear_trans = DB::table('transcations')
+            ->select('*')
+            ->where('user_name', $userdata[0]->name)
+            ->whereBetween('created_at', [$oneyear, $date_now_today])
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        $total_fiat_expense = ($fiatwallet + $all_bank_sum + ($noexpense_get_sum - $noexpense_sum));
 
         return view('dashboard', compact(
             'name', 'bankMoney', 'all_bank_sum', 'noincome_sum', 
             'noexpense_sum', 'userdata', 'total_fiat_expense', 'total_money_income', 
-            'noincome_get_sum', 'noexpense_get_sum'));
+            'noincome_get_sum', 'noexpense_get_sum', 'date_now', 'asc_value_income', 'desc_value_income', 
+            'average_value_income', 'asc_value_expense', 'desc_value_expense', 'average_value_expense', 
+            'total_all_transc', 'today_trans', 'yesterday_trans', 'oneweek_trans', 'twoweek_trans',
+            'onemounth_trans','threemounth_trans','sixmounth_trans', 'oneyear_trans', 'all_trans',
+            
+        ));
 
         //return view('dashboard');
     })->name('dashboard');
@@ -104,10 +252,17 @@ Route::get('/edit-mn-no-income', [ControllerLink::class, 'editMnNoIncome'])->nam
 Route::get('/edit-mn-no-expense', [ControllerLink::class, 'editMnNoExpense'])->name('edit_mn_no_expense');
 Route::get('/delete-ac-no-income', [ControllerLink::class, 'deleteAcNoIncome'])->name('delete_ac_no_income');
 Route::get('/delete-ac-no-expense', [ControllerLink::class, 'deleteAcNoExpense'])->name('delete_ac_no_expense');
+Route::get('/add-transaction-bank', [ControllerLink::class, 'addTransactionBank'])->name('add_transaction_bank');
+Route::get('/generate-pdf', [updownController::class, 'generatePDF'])->name('generate-pdf');
+Route::get('/all-trans-export', [updownController::class, 'allTransExport'])->name('all-trans-export');
+
+//Test
+Route::get('/json-export-file', [updownController::class, 'jsonExportFile'])->name('json-export-file');
 
 
 //save Form
 Route::post('/save-transcation', [ControllerLink::class, 'saveTransaction'])->name('save_transcation');
+Route::post('/save-transcation-bank', [ControllerLink::class, 'saveTransactionBank'])->name('save_transcation_bank');
 Route::post('/update-fiat', [ControllerLink::class, 'updateFiat'])->name('update_fiat');
 Route::post('/add-ac-bank', [ControllerLink::class, 'addAcBank'])->name('add_ac_bank');
 Route::post('/update-bank', [ControllerLink::class, 'updateBank'])->name('update_bank');

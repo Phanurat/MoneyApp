@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
         <h5 class="font-semibold text-xl text-gray-800 leading-tight">
-            เพิ่มรายการ
+            เพิ่มรายการ ธนาคาร
         </h5>
     </x-slot>
 
     <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 20%;">
-        <form method="post" action="{{ route('save_transcation') }}">
+        <form method="post" action="{{ route('save_transcation_bank') }}">
             @csrf
             <div class="mb-3">
                 <label for="datetimeinput" class="form-label">เวลา</label>
@@ -15,8 +15,14 @@
             </div>
 
             <div class="mb-3">
-                <label for="nameinput" class="form-label">ชื่อรายการ</label>
-                <input type="text" class="form-control" name="name_trans">
+                <label for="nameinput" class="form-label">ชื่อธนาคาร</label>                    
+                <select name="select_id" id="select-type" style="width: 100%" required>
+                    <option value="none" disabled selected> --- เลือกธนาคาร --- </option>
+                    @foreach ($show_bank_data as $allbank)
+                        <option value="{{$allbank->id_bank}}" name="id_bank">ธนาคาร: 
+                            {{$allbank->name_bank}} เงินในบัญชี: {{$allbank->wallet_bank}} บาท</option>
+                    @endforeach
+                </select>    
             </div>
             
             <div class="mb-3">
@@ -27,15 +33,11 @@
                 <label for="valueinput" class="form-label">ประเภท</label>
                 <select name="select_type" id="select-type" required>
                     <option value="" disabled selected> --- เลือกประเภท --- </option>
-                    <option value="income">รายได้</option>
-                    <option value="expense">รายจ่าย</option>
-                    <!--<option value="" disabled selected> ---- </option>
                     <option value="inbank">รายได้ (ธนาคาร)</option>
-                    <option value="exbank">รายจ่าย (ธนาคาร)</option>-->
+                    <option value="exbank">รายจ่าย (ธนาคาร)</option>
                 </select>
             </div>
             <button type="submit" style="background-color: #0B5ED7; color: white; border: none; padding: 8px 16px; border-radius: 4px;">บันทึกรายการ</button>
-            <a href="{{route('add_transaction_bank')}}" style="background-color: #e4bd12; color: white; border: none; padding: 8px 16px; border-radius: 4px;">เพิ่มรายการธนาคาร</a>
           </form>
     </div> 
 

@@ -16,7 +16,7 @@
                 <label for="wallet_bank">จำนวนเงิน : </label>
                 <input type="number" name="wallet_no_expense" placeholder="จำนวนเงิน">
             </div>
-            <button type="submit" class="btn btn-primary">บันทึกรายการ</button>
+            <button type="submit" style="background-color: #0B5ED7; color: white; border: none; padding: 8px 16px; border-radius: 4px;">บันทึกรายการ</button>
         </form>
     </div>
 </x-app-layout>

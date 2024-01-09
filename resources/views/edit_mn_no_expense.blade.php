@@ -27,7 +27,7 @@
                 <input type="number" class="form-control" name="money_update" value="{{ $data_no_expense[0]->wallet_noexpense }}"> 
                 <div style="margin-top: 10px;"></div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">บันทึกข้อมูล</button>
+                    <button type="submit" style="background-color: #0B5ED7; color: white; border: none; padding: 8px 16px; border-radius: 4px;">บันทึกข้อมูล</button>
                 </div>
             </div>
                

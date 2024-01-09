@@ -20,6 +20,44 @@
     .add-report-button:hover {
         background-color: #0056a0;
     }
+
+    .green-frame {
+        border: 2px solid #28a745; /* สีเขียว */
+        padding: 10px; /* เพิ่มช่องว่างรอบข้อความ */
+        margin-bottom: 20px; /* ขยับลงด้านล่างเพื่อเว้นระยะห่างระหว่างกรอบ */
+        background-color: #d4edda;
+        border-radius: 8px;
+    }
+
+    .green-head {
+        font-size: 20px; 
+        color: #28a745; 
+        font-family: 'Arial', sans-serif; 
+        font-weight: bold;
+    }
+
+    /* สร้างกรอบสีแดง */
+    .red-frame {
+        border: 2px solid #dc3545; /* สีแดง */
+        padding: 10px; /* เพิ่มช่องว่างรอบข้อความ */
+        background-color: #f8d7da;
+        border-radius: 8px;
+
+    }
+    .red-head {
+        font-size: 20px; 
+        color: #dc3545; 
+        font-family: 'Arial', sans-serif; 
+        font-weight: bold;
+    }
+
+    .date_now {
+        font-size: 20px; 
+        color: #ff6600; 
+        font-family: 'Arial', sans-serif; 
+        font-weight: bold;
+    }
+
 </style>
 
 <x-app-layout>
@@ -99,7 +137,7 @@
                 <span class="input-group-text">
                     @if(isset($noexpense_sum, $noexpense_get_sum) && isset($noexpense_sum, $noexpense_get_sum))
                         <span class="input-group-text">
-                            {{ number_format($noexpense_get_sum - $noexpense_sum) }} บาท
+                            {{ number_format($noexpense_sum - $noexpense_get_sum) }} บาท
                         </span>
                     @else
                         <span class="input-group-text">
@@ -163,17 +201,93 @@
         <div class="input-group">
             <input id="input4" class="form-control" type="text" placeholder="สรุปรายงาน" aria-label="Disabled input example" disabled>
         </div>
+        <div style="margin-top: 10px;"></div>
+        <div class="content-group">
+            <div class="date_now">วันนี้ {{$date_now}} </div>
+            <div style="font-size: 20px; color: #312f2d; font-family: 'Arial', sans-serif; font-weight: bold;">รายการ {{$total_all_transc}}</div>
+            <div style="margin-top: 10px;"></div>
+            <div class="green-frame">
+                <div>
+                    <h1 class="green-head">รายรับ</h1>
+                    <h1>เฉลี่ย {{ $average_value_income ? number_format($average_value_income, 2) : '0.00' }}</h1>
+                    <h1>มากที่สุด {{ isset($desc_value_income[0]) ? $desc_value_income[0]->value : '0' }} บาท</h1>
+                    <h1>น้อยที่สุด {{ isset($asc_value_income[0]) ? $asc_value_income[0]->value : '0' }} บาท</h1>
+                </div>                
+            </div>
+            <div class="red-frame">
+                <div>
+                    <h1 class="red-head">รายจ่าย</h1>
+                    <h1>เฉลี่ย {{ $average_value_expense ? number_format($average_value_expense, 2) : '0.00' }}</h1>
+                    <h1>มากที่สุด {{ isset($desc_value_expense[0]) ? $desc_value_expense[0]->value : '0' }} บาท</h1>
+                    <h1>น้อยที่สุด {{ isset($asc_value_expense[0]) ? $asc_value_expense[0]->value : '0' }} บาท</h1>
+                </div>
+            </div>            
+        </div>
+        <div style="margin-top: 10px;"></div>
     </div>
 
-    <div style="margin-top: 500px;"></div>
+    <div style="margin-top: 10px;"></div>
     <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
         <div class="input-group">
-            <input id="input4" class="form-control" type="text" aria-label="Disabled input example" disabled>
-            <div class="input-group-append">
-                <span class="input-group-text"></span>
-            </div>
+            <form>
+                <select name="mySelect" id="mySelect" onchange="myFunction()">
+                    <option>วันที่</option>
+                    <option>เมื่อวาน</option>
+                    <option>1 อาทิตย์</option>
+                    <option>2 อาทิตย์</option>
+                    <option>1 เดือน</option>
+                    <option>3 เดือน</option>
+                    <option>6 เดือน</option>
+                    <option>1 ปี</option>
+                    <option>ทั้งหมด</option>
+                </select>
+            </form>           
         </div>
     </div>
-    
+    <div style="margin-top: 10px;"></div>
+    <div class="card mx-auto" style="width: 90%; margin: 0 10%;">
+        <div class="input-group">
+            <table  class="table table-Secondary table-striped" id="demo">
+                <thead>
+                    <tr>
+                        <th scope="col">ชื่อรายการ</th>
+                        <th scope="col">จำนวนเงิน</th>
+                        <th scope="col">วันที่</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($yesterday_trans as $index => $transaction)
+                        <tr>
+                            <td>{{ $transaction->name_transaction }}</td>
+                            <td>
+                                @if ($transaction->type === 'income' || $transaction->type === 'inbank')
+                                    +{{ number_format($transaction->value) }}
+                                @elseif ($transaction->type === 'expense' || $transaction->type === 'exbank')
+                                    -{{ number_format($transaction->value) }}
+                                @endif
+                            </td>
+                            <td>{{ $transaction->created_at }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            </table>
+        </div>
+    </div>
 
+    <div style="margin-top: 60px;"></div>
+    
 </x-app-layout>
+
+<script>
+    function myFunction(selectedOption) {
+        document.getElementById("demo").innerHTML = selectedOption;
+    }
+
+    document.getElementById("mySelect").addEventListener("change", function() {
+        var x = document.getElementById("mySelect");
+        var i = x.selectedIndex;
+        var selectedOption = x.options[i].text;
+        myFunction(selectedOption);
+    });
+</script>
